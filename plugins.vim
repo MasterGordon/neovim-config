@@ -149,36 +149,43 @@ let g:nvim_tree_icons = {
     \   }
     \ }
 
+let g:nvim_tree_disable_default_keybindings = 1
+
 lua <<EOF
     local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+    -- default mappings
     vim.g.nvim_tree_bindings = {
-      -- default mappings
-      ["<CR>"]           = tree_cb("edit"),
-      ["<2-LeftMouse>"]  = tree_cb("edit"),
-      ["<2-RightMouse>"] = tree_cb("cd"),
-      ["<C-]>"]          = tree_cb("cd"),
-      ["s"]          = tree_cb("vsplit"),
-      ["i"]          = tree_cb("split"),
-      ["t"]          = tree_cb("tabnew"),
-      ["<"]              = tree_cb("prev_sibling"),
-      [">"]              = tree_cb("next_sibling"),
-      ["<BS>"]           = tree_cb("close_node"),
-      ["<S-CR>"]         = tree_cb("close_node"),
-      ["<Tab>"]          = tree_cb("preview"),
-      ["I"]              = tree_cb("toggle_ignored"),
-      ["I"]              = tree_cb("toggle_dotfiles"),
-      ["r"]              = tree_cb("refresh"),
-      ["c"]              = tree_cb("create"),
-      ["d"]              = tree_cb("remove"),
-      ["m"]              = tree_cb("rename"),
-      ["<C-r>"]          = tree_cb("full_rename"),
-      ["x"]              = tree_cb("cut"),
-      ["c"]              = tree_cb("copy"),
-      ["p"]              = tree_cb("paste"),
-      ["[c"]             = tree_cb("prev_git_item"),
-      ["]c"]             = tree_cb("next_git_item"),
-      ["-"]              = tree_cb("dir_up"),
-      ["q"]              = tree_cb("close"),
+      { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
+      { key = {"<2-RightMouse>", "<C-]>"},    cb = tree_cb("cd") },
+      { key = "s",                        cb = tree_cb("vsplit") },
+      { key = "i",                        cb = tree_cb("split") },
+      { key = "t",                        cb = tree_cb("tabnew") },
+      { key = "<",                            cb = tree_cb("prev_sibling") },
+      { key = ">",                            cb = tree_cb("next_sibling") },
+      { key = "P",                            cb = tree_cb("parent_node") },
+      { key = "<BS>",                         cb = tree_cb("close_node") },
+      { key = "<S-CR>",                       cb = tree_cb("close_node") },
+      { key = "<Tab>",                        cb = tree_cb("preview") },
+      { key = "K",                            cb = tree_cb("first_sibling") },
+      { key = "J",                            cb = tree_cb("last_sibling") },
+      { key = "I",                            cb = tree_cb("toggle_ignored") },
+      { key = "I",                            cb = tree_cb("toggle_dotfiles") },
+      { key = "r",                            cb = tree_cb("refresh") },
+      { key = "c",                            cb = tree_cb("create") },
+      { key = "d",                            cb = tree_cb("remove") },
+      { key = "m",                            cb = tree_cb("rename") },
+      { key = "<C-r>",                        cb = tree_cb("full_rename") },
+      { key = "x",                            cb = tree_cb("cut") },
+      { key = "c",                            cb = tree_cb("copy") },
+      { key = "p",                            cb = tree_cb("paste") },
+      { key = "y",                            cb = tree_cb("copy_name") },
+      { key = "Y",                            cb = tree_cb("copy_path") },
+      { key = "gy",                           cb = tree_cb("copy_absolute_path") },
+      { key = "[c",                           cb = tree_cb("prev_git_item") },
+      { key = "]c",                           cb = tree_cb("next_git_item") },
+      { key = "-",                            cb = tree_cb("dir_up") },
+      { key = "q",                            cb = tree_cb("close") },
+      { key = "?",                           cb = tree_cb("toggle_help") },
     }
 EOF
 
