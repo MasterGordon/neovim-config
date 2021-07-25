@@ -131,5 +131,12 @@ return require("packer").startup(
         require "plugins/diffview"
       end
     }
+    use {
+      "akinsho/nvim-bufferline.lua",
+      config = function()
+        require "plugins/bufferline"
+      end,
+      requires = "kyazdani42/nvim-web-devicons"
+    }
   end
 )
