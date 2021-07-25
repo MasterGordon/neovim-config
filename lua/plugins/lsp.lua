@@ -24,6 +24,9 @@ vim.fn.sign_define(
   {texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation"}
 )
 
+--- Completion Icons
+require("lspkind").init({})
+
 --- Languages
 require "lspconfig".bashls.setup {}
 require "lspconfig".ccls.setup {}
@@ -31,7 +34,6 @@ require "lspconfig".clangd.setup {}
 require "lspconfig".cssls.setup {}
 require "lspconfig".html.setup {}
 require "lspconfig".jsonls.setup {}
-require "lspconfig".pyls.setup {}
 require "lspconfig".pyright.setup {}
 require "lspconfig".tsserver.setup {}
 require "lspconfig".vimls.setup {}
@@ -94,9 +96,4 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
   buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-end
-
-local servers = {"pyright", "rust_analyzer", "tsserver"}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {on_attach = on_attach}
 end
