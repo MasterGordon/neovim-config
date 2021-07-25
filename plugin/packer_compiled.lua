@@ -69,6 +69,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["diffview.nvim"] = {
+    config = { "\27LJ\1\0020\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\21plugins/diffview\frequire\0" },
+    loaded = true,
+    path = "/home/gordon/.local/share/nvim/site/pack/packer/start/diffview.nvim"
+  },
   ["formatter.nvim"] = {
     config = { "\27LJ\1\0021\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\22plugins/formatter\frequire\0" },
     loaded = true,
@@ -100,11 +105,6 @@ _G.packer_plugins = {
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/gordon/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
-  },
-  ["nvim-blame-line"] = {
-    config = { "\27LJ\1\2R\0\0\2\1\3\0\6+\0\0\0007\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0\0\0'autocmd BufEnter * EnableBlameLine\14nvim_exec\bapi\0" },
-    loaded = true,
-    path = "/home/gordon/.local/share/nvim/site/pack/packer/start/nvim-blame-line"
   },
   ["nvim-colorizer.lua"] = {
     config = { "\27LJ\1\0027\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\14colorizer\frequire\0" },
@@ -183,22 +183,22 @@ time([[Config for formatter.nvim]], false)
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\1\2œ\2\0\0\3\0\14\0\0214\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\3\0>\0\2\0014\0\0\0%\1\4\0>\0\2\0027\0\2\0003\1\6\0003\2\5\0:\2\a\0013\2\b\0:\2\t\0013\2\n\0:\2\v\0013\2\f\0:\2\r\1>\0\2\1G\0\1\0\fautotag\1\0\1\venable\2\vindent\1\0\1\venable\2\14highlight\1\0\1\venable\2\26context_commentstring\1\0\0\1\0\2\19enable_autocmd\2\venable\2\28nvim-treesitter.configs\1\0\1\30enable_check_bracket_line\2\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-try_loadstring("\27LJ\1\0027\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
-time([[Config for nvim-colorizer.lua]], false)
--- Config for: nvim-compe
-time([[Config for nvim-compe]], true)
-try_loadstring("\27LJ\1\2-\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\18plugins/compe\frequire\0", "config", "nvim-compe")
-time([[Config for nvim-compe]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+try_loadstring("\27LJ\1\0021\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\22plugins/nvim-tree\frequire\0", "config", "nvim-tree.lua")
+time([[Config for nvim-tree.lua]], false)
+-- Config for: diffview.nvim
+time([[Config for diffview.nvim]], true)
+try_loadstring("\27LJ\1\0020\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\21plugins/diffview\frequire\0", "config", "diffview.nvim")
+time([[Config for diffview.nvim]], false)
 -- Config for: numb.nvim
 time([[Config for numb.nvim]], true)
 try_loadstring("\27LJ\1\0022\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\tnumb\frequire\0", "config", "numb.nvim")
 time([[Config for numb.nvim]], false)
--- Config for: nvim-blame-line
-time([[Config for nvim-blame-line]], true)
-try_loadstring("\27LJ\1\2R\0\0\2\1\3\0\6+\0\0\0007\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0\0\0'autocmd BufEnter * EnableBlameLine\14nvim_exec\bapi\0", "config", "nvim-blame-line")
-time([[Config for nvim-blame-line]], false)
+-- Config for: nvim-compe
+time([[Config for nvim-compe]], true)
+try_loadstring("\27LJ\1\2-\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\18plugins/compe\frequire\0", "config", "nvim-compe")
+time([[Config for nvim-compe]], false)
 -- Config for: vim-signify
 time([[Config for vim-signify]], true)
 try_loadstring("\27LJ\1\2/\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\20plugins/signify\frequire\0", "config", "vim-signify")
@@ -215,10 +215,10 @@ time([[Config for galaxyline.nvim]], false)
 time([[Config for nvim-lspconfig]], true)
 try_loadstring("\27LJ\1\2+\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\16plugins/lsp\frequire\0", "config", "nvim-lspconfig")
 time([[Config for nvim-lspconfig]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
-try_loadstring("\27LJ\1\0021\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\22plugins/nvim-tree\frequire\0", "config", "nvim-tree.lua")
-time([[Config for nvim-tree.lua]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+try_loadstring("\27LJ\1\0027\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
+time([[Config for nvim-colorizer.lua]], false)
 if should_profile then save_profiles() end
 
 end)

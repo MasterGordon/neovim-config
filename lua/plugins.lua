@@ -111,7 +111,7 @@ return require("packer").startup(
     }
     use {
       "nvim-telescope/telescope.nvim",
-      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+      requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}
     }
     use {
       "nacro90/numb.nvim",
@@ -126,9 +126,9 @@ return require("packer").startup(
       end
     }
     use {
-      "tveskag/nvim-blame-line",
+      "sindrets/diffview.nvim",
       config = function()
-        vim.api.nvim_exec([[autocmd BufEnter * EnableBlameLine]], true)
+        require "plugins/diffview"
       end
     }
   end
