@@ -1,6 +1,6 @@
 local prettierd = function()
   return {
-    exe = "prettierd",
+    exe = "prettier_d_slim",
     args = {vim.api.nvim_buf_get_name(0)},
     stdin = true
   }

@@ -138,5 +138,11 @@ return require("packer").startup(
       end,
       requires = "kyazdani42/nvim-web-devicons"
     }
+    use {
+      "lewis6991/spellsitter.nvim",
+      config = function()
+        require("spellsitter").setup()
+      end
+    }
   end
 )
