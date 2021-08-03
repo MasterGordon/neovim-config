@@ -1,9 +1,9 @@
 local gl = require("galaxyline")
 local colors = require("galaxyline.theme").default
-local monokai = require("monokai")
+local theme = require("monokai")
 local condition = require("galaxyline.condition")
 local gls = gl.section
-colors.bg = monokai.bg
+colors.bg = theme.classic.base3
 gl.short_line_list = {"NvimTree", "vista", "dbui", "packer"}
 
 gls.left[2] = {

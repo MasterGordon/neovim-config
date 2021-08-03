@@ -21,7 +21,13 @@ return require("packer").startup(
   function()
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
-    use "MasterGordon/monokai.nvim"
+    use {
+      "MasterGordon/monokai.nvim",
+      config = function()
+        require("monokai").setup()
+      end
+    }
+    -- use "folke/tokyonight.nvim"
     use {
       "glepnir/galaxyline.nvim",
       branch = "main",
@@ -54,6 +60,10 @@ return require("packer").startup(
       end
     }
     use {
+      "nvim-treesitter/playground",
+      requires = {"nvim-treesitter/nvim-treesitter"}
+    }
+    use {
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
       config = function()
@@ -68,7 +78,10 @@ return require("packer").startup(
             enable_autocmd = true
           },
           highlight = {
-            enable = true
+            enable = true,
+            custom_captures = {
+              ["jsx_element"] = "TSTag"
+            }
           },
           indent = {
             enable = true
