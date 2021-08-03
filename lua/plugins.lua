@@ -1,4 +1,3 @@
-local vim = vim
 local execute = vim.api.nvim_command
 local fn = vim.fn
 -- ensure that packer is installed
@@ -27,7 +26,6 @@ return require("packer").startup(
         require("monokai").setup()
       end
     }
-    -- use "folke/tokyonight.nvim"
     use {
       "glepnir/galaxyline.nvim",
       branch = "main",
@@ -156,6 +154,14 @@ return require("packer").startup(
       config = function()
         require("spellsitter").setup()
       end
+    }
+    use {
+      "rcarriga/vim-ultest",
+      config = function()
+        require "plugins/ultest"
+      end,
+      requires = {"vim-test/vim-test"},
+      run = ":UpdateRemotePlugins"
     }
   end
 )
