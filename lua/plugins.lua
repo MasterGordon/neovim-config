@@ -163,5 +163,11 @@ return require("packer").startup(
       requires = {"vim-test/vim-test"},
       run = ":UpdateRemotePlugins"
     }
+    use {
+      "vuki656/package-info.nvim",
+      config = function()
+        require("package-info").setup()
+      end
+    }
   end
 )
