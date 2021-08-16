@@ -1,2 +1,6 @@
-vim.api.nvim_set_keymap("n", "<leader>f", "<CMD>Telescope find_files<CR>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>t", "<CMD>TodoTelescope<CR>", {silent = true})
 vim.api.nvim_set_keymap("", "q:", "<Nop>", {silent = true})

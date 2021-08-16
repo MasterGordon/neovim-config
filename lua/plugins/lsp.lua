@@ -33,7 +33,6 @@ require "lspconfig".ccls.setup {}
 require "lspconfig".clangd.setup {}
 require "lspconfig".cssls.setup {}
 require "lspconfig".html.setup {}
-require "lspconfig".jsonls.setup {}
 require "lspconfig".pyright.setup {}
 require "lspconfig".tsserver.setup {}
 require "lspconfig".vimls.setup {}
@@ -71,6 +70,11 @@ require "lspconfig".efm.setup {
 local nvim_lsp = require("lspconfig")
 
 local on_attach = function(client, bufnr)
+  require "lsp_signature".on_attach(
+    {
+      hint_enable = false
+    }
+  )
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
@@ -98,7 +102,30 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 end
 
-local servers = {"pyright", "jsonls", "tsserver", "bashls", "clangd", "cssls"}
+require "lspconfig".jsonls.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150
+  },
+  settings = {
+    json = require "json-schema"
+  }
+}
+
+require "lspconfig".tsserver.setup {
+  on_attach = function(client, bufnr)
+    local ts_utils = require("nvim-lsp-ts-utils")
+
+    ts_utils.setup {}
+    ts_utils.setup_client(client)
+    on_attach(client, bufnr)
+  end,
+  flags = {
+    debounce_text_changes = 150
+  }
+}
+
+local servers = {"pyright", "bashls", "clangd", "cssls"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

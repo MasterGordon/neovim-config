@@ -3,18 +3,16 @@ local fn = vim.fn
 -- ensure that packer is installed
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-  execute "packadd packer.nvim"
 end
 vim.cmd("packadd packer.nvim")
 local packer = require "packer"
-local util = require "packer.util"
 
 packer.init(
   {
     package_root = util.join_paths(vim.fn.stdpath("data"), "site", "pack")
   }
 )
+hello!
 
 return require("packer").startup(
   function()
@@ -70,21 +68,6 @@ return require("packer").startup(
             enable_check_bracket_line = true
           }
         )
-        local remap = vim.api.nvim_set_keymap
-        local npairs = require("nvim-autopairs")
-
-        -- skip it, if you use another global object
-        _G.MUtils = {}
-
-        MUtils.completion_confirm = function()
-          if vim.fn.pumvisible() ~= 0 then
-            return npairs.esc("<cr>")
-          else
-            return npairs.autopairs_cr()
-          end
-        end
-
-        remap("i", "<CR>", "v:lua.MUtils.completion_confirm()", {expr = true, noremap = true})
         require "nvim-treesitter.configs".setup {
           context_commentstring = {
             enable = true,
@@ -142,11 +125,6 @@ return require("packer").startup(
     }
     use {
       "nvim-telescope/telescope.nvim",
-      config = function()
-        require("telescope").setup {
-          file_ignore_patterns = {"package-lock.json"}
-        }
-      end,
       requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}
     }
     use {
@@ -175,6 +153,12 @@ return require("packer").startup(
       requires = "kyazdani42/nvim-web-devicons"
     }
     use {
+      "lewis6991/spellsitter.nvim",
+      config = function()
+        require("spellsitter").setup()
+      end
+    }
+    use {
       "rcarriga/vim-ultest",
       config = function()
         require "plugins/ultest"
@@ -189,12 +173,5 @@ return require("packer").startup(
       end
     }
     use {"npxbr/glow.nvim", run = "GlowInstall"}
-    use {
-      "folke/todo-comments.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("todo-comments").setup {}
-      end
-    }
   end
 )

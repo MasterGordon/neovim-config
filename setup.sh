@@ -9,4 +9,5 @@ vim-language-server \
 vscode-css-languageserver-bin \
 vscode-html-languageserver-bin \
 vscode-json-languageserver \
+vscode-langservers-extracted \
 vscode-langservers-extracted
