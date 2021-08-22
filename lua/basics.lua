@@ -21,4 +21,4 @@ set.splitbelow = true
 set.signcolumn = "auto:2"
 
 -- set leader
-vim.g.mapleader = ","
+vim.g.mapleader = " "
