@@ -6,8 +6,10 @@ set.clipboard = "unnamedplus"
 set.mouse = "a"
 set.termguicolors = true
 set.swapfile = false
-set.cursorline = true
-set.cursorlineopt = "number"
+if (not vim.version().api_prerelease) then
+  set.cursorline = true
+  set.cursorlineopt = "number"
+end
 
 vim.cmd [[filetype plugin indent on]]
 set.tabstop = 2
