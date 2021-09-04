@@ -65,26 +65,22 @@ return require("packer").startup(
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
       config = function()
-        require("nvim-autopairs").setup(
+        local npairs = require("nvim-autopairs")
+        npairs.setup(
           {
+            check_ts = true,
             enable_check_bracket_line = true
           }
         )
-        local remap = vim.api.nvim_set_keymap
-        local npairs = require("nvim-autopairs")
 
-        -- skip it, if you use another global object
-        _G.MUtils = {}
+        require("nvim-autopairs.completion.compe").setup(
+          {
+            map_cr = true, --  map <CR> on insert mode
+            map_complete = true, -- it will auto insert `(` after select function or method item
+            auto_select = false -- auto select first item
+          }
+        )
 
-        MUtils.completion_confirm = function()
-          if vim.fn.pumvisible() ~= 0 then
-            return npairs.esc("<cr>")
-          else
-            return npairs.autopairs_cr()
-          end
-        end
-
-        remap("i", "<CR>", "v:lua.MUtils.completion_confirm()", {expr = true, noremap = true})
         require "nvim-treesitter.configs".setup {
           context_commentstring = {
             enable = true,
@@ -101,7 +97,8 @@ return require("packer").startup(
           },
           autotag = {
             enable = true
-          }
+          },
+          autopairs = {enable = true}
         }
       end,
       requires = {"JoosepAlviste/nvim-ts-context-commentstring", "windwp/nvim-ts-autotag", "windwp/nvim-autopairs"}
@@ -131,7 +128,8 @@ return require("packer").startup(
         "RishabhRD/nvim-lsputils",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
-        "jose-elias-alvarez/nvim-lsp-ts-utils"
+        "jose-elias-alvarez/nvim-lsp-ts-utils",
+        "jose-elias-alvarez/null-ls.nvim"
       }
     }
     use {

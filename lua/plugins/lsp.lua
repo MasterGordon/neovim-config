@@ -50,6 +50,10 @@ local eslint = {
   }
 }
 
+--- ESLINT Actions
+require("null-ls").config {}
+require("lspconfig")["null-ls"].setup {}
+
 require "lspconfig".efm.setup {
   init_options = {documentFormatting = true},
   filetypes = {"javascript", "typescript", "javascriptreact", "typescriptreact"},
@@ -111,7 +115,10 @@ require "lspconfig".tsserver.setup {
   on_attach = function(client, bufnr)
     local ts_utils = require("nvim-lsp-ts-utils")
 
-    ts_utils.setup {}
+    ts_utils.setup {
+      eslint_bin = "eslint_d",
+      eslint_enable_diagnostics = false
+    }
     ts_utils.setup_client(client)
     on_attach(client, bufnr)
   end,
