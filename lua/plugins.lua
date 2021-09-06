@@ -64,6 +64,7 @@ return require("packer").startup(
     use {
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
+      after = "nvim-compe",
       config = function()
         local npairs = require("nvim-autopairs")
         npairs.setup(
@@ -80,17 +81,13 @@ return require("packer").startup(
             auto_select = false -- auto select first item
           }
         )
-
         require "nvim-treesitter.configs".setup {
           context_commentstring = {
             enable = true,
             enable_autocmd = true
           },
           highlight = {
-            enable = true,
-            custom_captures = {
-              ["jsx_element"] = "TSTag"
-            }
+            enable = true
           },
           indent = {
             enable = true
@@ -98,7 +95,9 @@ return require("packer").startup(
           autotag = {
             enable = true
           },
-          autopairs = {enable = true}
+          autopairs = {
+            enable = true
+          }
         }
       end,
       requires = {"JoosepAlviste/nvim-ts-context-commentstring", "windwp/nvim-ts-autotag", "windwp/nvim-autopairs"}
