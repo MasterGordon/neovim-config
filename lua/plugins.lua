@@ -109,12 +109,6 @@ return require("packer").startup(
       end
     }
     use {
-      "mhinz/vim-signify",
-      config = function()
-        require "plugins/signify"
-      end
-    }
-    use {
       "RishabhRD/nvim-lsputils",
       requires = {"RishabhRD/popfix"}
     }
@@ -191,6 +185,15 @@ return require("packer").startup(
       requires = "nvim-lua/plenary.nvim",
       config = function()
         require("todo-comments").setup {}
+      end
+    }
+    use {
+      "lewis6991/gitsigns.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      },
+      config = function()
+        require("gitsigns").setup()
       end
     }
   end
