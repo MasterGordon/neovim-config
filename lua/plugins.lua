@@ -177,7 +177,8 @@ return require("packer").startup(
       "vuki656/package-info.nvim",
       config = function()
         require("package-info").setup()
-      end
+      end,
+      requires = "MunifTanjim/nui.nvim"
     }
     use {"npxbr/glow.nvim", run = "GlowInstall"}
     use {
@@ -196,5 +197,6 @@ return require("packer").startup(
         require("gitsigns").setup()
       end
     }
+    use "jbyuki/venn.nvim"
   end
 )
