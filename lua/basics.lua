@@ -8,6 +8,7 @@ set.termguicolors = true
 set.swapfile = false
 set.cursorline = true
 set.cursorlineopt = "number"
+set.scrolloff = 10
 
 vim.cmd [[filetype plugin indent on]]
 set.tabstop = 2
