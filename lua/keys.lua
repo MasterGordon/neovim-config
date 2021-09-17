@@ -25,3 +25,21 @@ function _G.toggle_venn()
 end
 -- toggle keymappings for venn using <leader>v
 vim.api.nvim_set_keymap("n", "<leader>v", ":lua toggle_venn()<cr>", {noremap = true})
+vim.api.nvim_set_keymap(
+  "v",
+  "<Leader>mc",
+  "<Cmd>lua require('nvim-magic.flows').append_completion(require('nvim-magic').backends.default)<CR>",
+  {}
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "<Leader>ma",
+  "<Cmd>lua require('nvim-magic.flows').suggest_alteration(require('nvim-magic').backends.default)<CR>",
+  {}
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "<Leader>md",
+  "<Cmd>lua require('nvim-magic.flows').suggest_docstring(require('nvim-magic').backends.default)<CR>",
+  {}
+)

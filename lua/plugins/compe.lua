@@ -21,6 +21,8 @@ require "compe".setup {
 }
 
 vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", {silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<C-f>", "compe#complete()", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-f>", "compe#complete()", {silent = true, expr = true})
+-- vim.api.nvim_set_keymap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", {silent = true, expr = true})
+-- vim.api.nvim_set_keymap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", {silent = true, expr = true})
