@@ -127,6 +127,10 @@ require "lspconfig".tsserver.setup {
   }
 }
 
+--[[ require "lspconfig".java_language_server.setup {
+  on_attach = on_attach,
+  cmd = {"java-language-server"}
+} ]]
 local servers = {"pyright", "bashls", "clangd", "cssls"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {

@@ -203,9 +203,11 @@ return require("packer").startup(
       {
         "jameshiew/nvim-magic",
         config = function()
-          require("nvim-magic").setup({
-            use_default_keymap = false
-          })
+          require("nvim-magic").setup(
+            {
+              use_default_keymap = false
+            }
+          )
         end,
         tag = "v0.2.1", -- recommended to pin to a tag and update manually as there may be breaking changes
         requires = {
@@ -214,5 +216,19 @@ return require("packer").startup(
         }
       }
     )
+    use {
+      "mfussenegger/nvim-jdtls",
+      config = function()
+        vim.cmd(
+          [[
+          augroup jdtls_lsp
+          autocmd!
+          autocmd FileType java lua require'plugins/java-lsp'.setup()
+          augroup end
+        ]]
+        )
+      end,
+      requires = {"mfussenegger/nvim-dap"}
+    }
   end
 )
