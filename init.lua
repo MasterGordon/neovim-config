@@ -1,3 +1,2 @@
+vim.g.mapleader = " "
 require "plugins"
-require "basics"
-require "keys"

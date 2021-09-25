@@ -2,65 +2,7 @@ local M = {}
 
 function M.setup()
   local on_attach = function(client, bufnr)
-    require "jdtls.setup".add_commands()
-    require "jdtls".setup_dap()
     -- require "lsp-status".register_progress()
-    require "compe".setup {
-      enabled = true,
-      autocomplete = true,
-      debug = false,
-      min_length = 1,
-      preselect = "enable",
-      throttle_time = 80,
-      source_timeout = 200,
-      incomplete_delay = 400,
-      max_abbr_width = 100,
-      max_kind_width = 100,
-      max_menu_width = 100,
-      documentation = true,
-      source = {
-        path = true,
-        buffer = true,
-        calc = true,
-        vsnip = false,
-        nvim_lsp = true,
-        nvim_lua = true,
-        spell = true,
-        tags = true,
-        snippets_nvim = false,
-        treesitter = true
-      }
-    }
-
-    require "lspkind".init()
-
-    require "formatter".setup {
-      filetype = {
-        java = {
-          function()
-            return {
-              exe = "java",
-              args = {
-                "--add-exports",
-                "jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
-                "--add-exports",
-                "jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
-                "--add-exports",
-                "jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
-                "--add-exports",
-                "jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
-                "--add-exports",
-                "jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
-                "-jar",
-                os.getenv("HOME") .. "/.local/jars/google-java-format.jar",
-                vim.api.nvim_buf_get_name(0)
-              },
-              stdin = true
-            }
-          end
-        }
-      }
-    }
 
     vim.api.nvim_exec(
       [[
