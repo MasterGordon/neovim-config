@@ -8,19 +8,19 @@ vim.lsp.handlers["textDocument/documentSymbol"] = require "lsputil.symbols".docu
 vim.lsp.handlers["workspace/symbol"] = require "lsputil.symbols".workspace_handler
 
 vim.fn.sign_define(
-  "LspDiagnosticsSignError",
+  "DiagnosticSignError",
   {texthl = "LspDiagnosticsSignError", text = "", numhl = "LspDiagnosticsSignError"}
 )
 vim.fn.sign_define(
-  "LspDiagnosticsSignWarning",
+  "DiagnosticSignWarning",
   {texthl = "LspDiagnosticsSignWarning", text = "", numhl = "LspDiagnosticsSignWarning"}
 )
 vim.fn.sign_define(
-  "LspDiagnosticsSignHint",
+  "DiagnosticSignHint",
   {texthl = "LspDiagnosticsSignHint", text = "", numhl = "LspDiagnosticsSignHint"}
 )
 vim.fn.sign_define(
-  "LspDiagnosticsSignInformation",
+  "DiagnosticSignInformation",
   {texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation"}
 )
 

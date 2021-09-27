@@ -64,7 +64,7 @@ return require("packer").startup(
     use {
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
-      after = "nvim-compe",
+      -- after = "nvim-compe",
       config = function()
         local npairs = require("nvim-autopairs")
         npairs.setup(
@@ -74,13 +74,6 @@ return require("packer").startup(
           }
         )
 
-        require("nvim-autopairs.completion.compe").setup(
-          {
-            map_cr = true, --  map <CR> on insert mode
-            map_complete = true, -- it will auto insert `(` after select function or method item
-            auto_select = false -- auto select first item
-          }
-        )
         require "nvim-treesitter.configs".setup {
           context_commentstring = {
             enable = true,
@@ -125,12 +118,12 @@ return require("packer").startup(
         "jose-elias-alvarez/null-ls.nvim"
       }
     }
-    use {
+    --[[ use {
       "hrsh7th/nvim-compe",
       config = function()
         require "plugins/compe"
       end
-    }
+    } ]]
     use {
       "nvim-telescope/telescope.nvim",
       config = function()
@@ -199,23 +192,22 @@ return require("packer").startup(
     }
     use "jbyuki/venn.nvim"
     use "editorconfig/editorconfig-vim"
-    use(
-      {
-        "jameshiew/nvim-magic",
-        config = function()
-          require("nvim-magic").setup(
-            {
-              use_default_keymap = false
-            }
-          )
-        end,
-        tag = "v0.2.1", -- recommended to pin to a tag and update manually as there may be breaking changes
-        requires = {
-          "nvim-lua/plenary.nvim",
-          "MunifTanjim/nui.nvim"
-        }
+    use {
+      "jameshiew/nvim-magic",
+      config = function()
+        require("nvim-magic").setup(
+          {
+            use_default_keymap = false
+          }
+        )
+      end,
+      tag = "v0.2.1", -- recommended to pin to a tag and update manually as there may be breaking changes
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim"
       }
-    )
+    }
+
     use {
       "mfussenegger/nvim-jdtls",
       config = function()
@@ -229,6 +221,16 @@ return require("packer").startup(
         )
       end,
       requires = {"mfussenegger/nvim-dap"}
+    }
+    use {
+      "ms-jpq/coq_nvim",
+      branch = "coq",
+      config = function()
+        require "plugins/coq"
+      end,
+      setup = function()
+        vim.cmd("let g:coq_settings = { 'auto_start': v:true, 'keymaps': {'manual_completion': '<c-f>'} }")
+      end
     }
   end
 )
