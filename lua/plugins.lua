@@ -232,5 +232,6 @@ return require("packer").startup(
         vim.cmd("let g:coq_settings = { 'auto_start': v:true, 'keymaps': {'manual_completion': '<c-f>'} }")
       end
     }
+    use "aklt/plantuml-syntax"
   end
 )
