@@ -3,7 +3,7 @@ local M = {}
 function M.setup()
   local on_attach = function(client, bufnr)
     require "jdtls.setup".add_commands()
-    require "jdtls".setup_dap()
+    -- require "jdtls".setup_dap()
     -- require "lsp-status".register_progress()
     require "compe".setup {
       enabled = true,

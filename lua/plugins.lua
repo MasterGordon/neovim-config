@@ -219,8 +219,7 @@ return require("packer").startup(
           augroup end
         ]]
         )
-      end,
-      requires = {"mfussenegger/nvim-dap"}
+      end
     }
     use {
       "ms-jpq/coq_nvim",
