@@ -7,22 +7,19 @@ vim.lsp.handlers["textDocument/implementation"] = require "lsputil.locations".im
 vim.lsp.handlers["textDocument/documentSymbol"] = require "lsputil.symbols".document_handler
 vim.lsp.handlers["workspace/symbol"] = require "lsputil.symbols".workspace_handler
 
-vim.fn.sign_define(
-  "DiagnosticSignError",
-  {texthl = "LspDiagnosticsSignError", text = "", numhl = "LspDiagnosticsSignError"}
-)
-vim.fn.sign_define(
-  "DiagnosticSignWarning",
-  {texthl = "LspDiagnosticsSignWarning", text = "", numhl = "LspDiagnosticsSignWarning"}
-)
-vim.fn.sign_define(
-  "DiagnosticSignHint",
-  {texthl = "LspDiagnosticsSignHint", text = "", numhl = "LspDiagnosticsSignHint"}
-)
-vim.fn.sign_define(
-  "DiagnosticSignInformation",
-  {texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation"}
-)
+local signError = vim.fn.sign_getdefined("DiagnosticSignError")
+signError["text"] = ""
+signError["texthl"] = "DiagnosticSignError"
+vim.fn.sign_define("DiagnosticSignError", signError)
+local signWarn = vim.fn.sign_getdefined("DiagnosticSignWarn")
+signWarn["text"] = ""
+signWarn["texthl"] = "DiagnosticSignWarn"
+vim.fn.sign_define("DiagnosticSignWarn", signWarn)
+local signHint = vim.fn.sign_getdefined("DiagnosticSignHint")
+signHint["text"] = ""
+signHint["texthl"] = "DiagnosticSignHint"
+vim.fn.sign_define("DiagnosticSignHint", signHint)
+vim.fn.sign_define("DiagnosticSignInfo", signHint)
 
 --- Completion Icons
 require("lspkind").init({})
@@ -37,6 +34,7 @@ require "lspconfig".pyright.setup {}
 require "lspconfig".tsserver.setup {}
 require "lspconfig".vimls.setup {}
 require "lspconfig".yamlls.setup {}
+require "lspconfig".texlab.setup {}
 
 --- ESLINT
 
@@ -131,7 +129,7 @@ require "lspconfig".tsserver.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls"}
+local servers = {"pyright", "bashls", "clangd", "cssls", "texlab"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

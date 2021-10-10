@@ -4,6 +4,7 @@ vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin'
 vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>t", "<CMD>TodoTelescope<CR>", {silent = true})
 vim.api.nvim_set_keymap("", "q:", "<Nop>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>h", "<Plug>RestNvim", {silent = true})
 
 function _G.toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)

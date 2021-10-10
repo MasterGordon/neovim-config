@@ -235,4 +235,58 @@ function M.setup()
   require("jdtls").start_or_attach(config)
 end
 
+local function buf_set_keymap(...)
+  vim.api.nvim_buf_set_keymap(bufnr, ...)
+end
+local opts = {noremap = true, silent = true}
+buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+buf_set_keymap("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+buf_set_keymap("n", "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+buf_set_keymap("n", "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+buf_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+buf_set_keymap("n", "<leader>a", "<Cmd>lua require('jdtls').code_action()<CR>", opts)
+buf_set_keymap("v", "<leader>a", "<Esc><Cmd>lua require('jdtls').code_action(true)<CR>", opts)
+buf_set_keymap("n", "<leader>r", "<Cmd>lua require('jdtls').code_action(false, 'refactor')<CR>", opts)
+buf_set_keymap("n", "gr", '<cmd>lua vim.lsp.buf.references() && vim.cmd("copen")<CR>', opts)
+buf_set_keymap("n", "<leader>d", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+buf_set_keymap("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+buf_set_keymap("n", "<leader>fc", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+-- Java specific
+buf_set_keymap("n", "<leader>rt", "<Cmd>lua require'jdtls'.test_class()<CR>", opts)
+buf_set_keymap("n", "<leader>rn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", opts)
+buf_set_keymap("v", "<leader>ev", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", opts)
+buf_set_keymap("n", "<leader>ev", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts)
+buf_set_keymap("v", "<leader>em", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", opts)
+vim.fn.sign_define(
+  "DiagnosticSignError",
+  {texthl = "LspDiagnosticsSignError", text = "", numhl = "LspDiagnosticsSignError"}
+)
+vim.fn.sign_define(
+  "DiagnosticSignWarning",
+  {texthl = "LspDiagnosticsSignWarning", text = "", numhl = "LspDiagnosticsSignWarning"}
+)
+vim.fn.sign_define(
+  "DiagnosticSignWarn",
+  {texthl = "LspDiagnosticsSignWarning", text = "", numhl = "LspDiagnosticsSignWarning"}
+)
+vim.fn.sign_define(
+  "DiagnosticSignHint",
+  {texthl = "LspDiagnosticsSignHint", text = "", numhl = "LspDiagnosticsSignHint"}
+)
+vim.fn.sign_define(
+  "DiagnosticSignInformation",
+  {texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation"}
+)
+vim.fn.sign_define(
+  "DiagnosticSignInfo",
+  {texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation"}
+)
+
 return M

@@ -27,6 +27,34 @@ return require("packer").startup(
       end
     }
     use {
+      "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("nvim-web-devicons").set_icon {
+          ["test.ts"] = {
+            icon = "",
+            color = "#519aba",
+            name = "TsTest"
+          },
+          ["test.tsx"] = {
+            icon = "",
+            color = "#519aba",
+            name = "TsTest"
+          },
+          ["test.js"] = {
+            icon = "",
+            color = "#cbcb41",
+            name = "JsTest"
+          },
+          ["test.jsx"] = {
+            icon = "",
+            color = "#cbcb41",
+            name = "JsTest"
+          }
+        }
+      end
+    }
+
+    use {
       "glepnir/galaxyline.nvim",
       branch = "main",
       config = function()
@@ -36,6 +64,7 @@ return require("packer").startup(
     }
     use {
       "kyazdani42/nvim-tree.lua",
+      after = "nvim-web-devicons",
       config = function()
         require "plugins/nvim-tree"
       end,
@@ -66,6 +95,14 @@ return require("packer").startup(
       run = ":TSUpdate",
       -- after = "nvim-compe",
       config = function()
+        local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+        parser_configs.http = {
+          install_info = {
+            url = "https://github.com/NTBBloodbath/tree-sitter-http",
+            files = {"src/parser.c"},
+            branch = "main"
+          }
+        }
         local npairs = require("nvim-autopairs")
         npairs.setup(
           {
@@ -93,7 +130,11 @@ return require("packer").startup(
           }
         }
       end,
-      requires = {"JoosepAlviste/nvim-ts-context-commentstring", "windwp/nvim-ts-autotag", "windwp/nvim-autopairs"}
+      requires = {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        "windwp/nvim-ts-autotag",
+        "windwp/nvim-autopairs"
+      }
     }
     use {
       "mhartington/formatter.nvim",
@@ -118,12 +159,6 @@ return require("packer").startup(
         "jose-elias-alvarez/null-ls.nvim"
       }
     }
-    --[[ use {
-      "hrsh7th/nvim-compe",
-      config = function()
-        require "plugins/compe"
-      end
-    } ]]
     use {
       "nvim-telescope/telescope.nvim",
       config = function()
@@ -232,5 +267,26 @@ return require("packer").startup(
       end
     }
     use "aklt/plantuml-syntax"
+    use {
+      "NTBBloodbath/rest.nvim",
+      requires = {"nvim-lua/plenary.nvim"},
+      config = function()
+        require("rest-nvim").setup(
+          {
+            -- Open request results in a horizontal split
+            result_split_horizontal = false,
+            -- Skip SSL verification, useful for unknown certificates
+            skip_ssl_verification = false,
+            -- Highlight request on run
+            highlight = {
+              enabled = true,
+              timeout = 150
+            },
+            -- Jump to request line on run
+            jump_to_request = false
+          }
+        )
+      end
+    }
   end
 )

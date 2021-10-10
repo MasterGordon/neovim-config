@@ -1,6 +1,6 @@
 vim.g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
 vim.g.nvim_tree_indent_markers = 1
-vim.api.nvim_set_keymap("", "<TAB>", ":NvimTreeFindFile<CR>", {silent = true})
+vim.api.nvim_set_keymap("", "<TAB>", ":NvimTreeFindFile<CR>:NvimTreeFocus<CR>", {silent = true})
 
 vim.g.nvim_tree_icons = {
   default = "",
