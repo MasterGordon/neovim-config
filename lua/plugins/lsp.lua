@@ -31,48 +31,10 @@ lsp_status.register_progress()
 require("lspkind").init({})
 
 --- Languages
-require "lspconfig".bashls.setup {}
 require "lspconfig".ccls.setup {}
-require "lspconfig".clangd.setup {}
-require "lspconfig".cssls.setup {}
 require "lspconfig".html.setup {}
-require "lspconfig".pyright.setup {}
 require "lspconfig".vimls.setup {}
 require "lspconfig".yamlls.setup {}
-require "lspconfig".texlab.setup {}
-
---- ESLINT
-
-local eslint = {
-  lintCommand = "eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}",
-  lintIgnoreExitCode = true,
-  lintStdin = true,
-  lintFormats = {
-    "%f(%l,%c): %tarning %m",
-    "%f(%l,%c): %rror %m"
-  }
-}
-
---- ESLINT Actions
-require("null-ls").config {}
-require("lspconfig")["null-ls"].setup {}
-
-require "lspconfig".efm.setup {
-  init_options = {documentFormatting = true},
-  filetypes = {"javascript", "typescript", "javascriptreact", "typescriptreact"},
-  init_options = {documentFormatting = true},
-  settings = {
-    rootMarkers = {".eslintrc.js", ".git/"},
-    languages = {
-      javascript = {eslint},
-      typescript = {eslint},
-      typescriptreact = {eslint},
-      javascriptreact = {eslint}
-    }
-  }
-}
-
---- Keybindings
 
 local nvim_lsp = require("lspconfig")
 
@@ -121,7 +83,7 @@ require "lspconfig".tsserver.setup {
     local ts_utils = require("nvim-lsp-ts-utils")
 
     ts_utils.setup {
-      eslint_bin = "eslint_d",
+      -- eslint_bin = "eslint_d",
       eslint_enable_diagnostics = false
     }
     ts_utils.setup_client(client)
@@ -129,6 +91,20 @@ require "lspconfig".tsserver.setup {
   end,
   flags = {
     debounce_text_changes = 150
+  },
+  capabilities = lsp_status.capabilities
+}
+
+require "lspconfig".eslint.setup {
+  on_attach = on_attach,
+  handlers = {
+    ["eslint/openDoc"] = function(_, result)
+      if not result then
+        return
+      end
+      print(result.url)
+      return {}
+    end
   },
   capabilities = lsp_status.capabilities
 }
