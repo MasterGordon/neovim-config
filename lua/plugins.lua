@@ -156,7 +156,8 @@ return require("packer").startup(
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
         "jose-elias-alvarez/nvim-lsp-ts-utils",
-        "jose-elias-alvarez/null-ls.nvim"
+        "jose-elias-alvarez/null-ls.nvim",
+        "nvim-lua/lsp-status.nvim"
       }
     }
     use {

@@ -140,6 +140,18 @@ gls.left[12] = {
   }
 }
 
+gls.right[0] = {
+  LeftEnd = {
+    provider = function()
+      return require("lsp-status").status()
+    end,
+    condition = condition.hide_in_width,
+    separator = " ",
+    separator_highlight = {"NONE", colors.bg},
+    highlight = {"NONE", colors.bg}
+  }
+}
+
 gls.right[1] = {
   FileEncode = {
     provider = "FileEncode",

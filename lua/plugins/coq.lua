@@ -4,6 +4,11 @@ local npairs = require("nvim-autopairs")
 npairs.setup({map_bs = false})
 
 vim.g.coq_settings = {
+  clients = {
+    lsp = {
+      weight_adjust = 10
+    }
+  },
   keymap = {recommended = false, manual_complete = "<c-f>"},
   display = {
     preview = {

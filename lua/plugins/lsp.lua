@@ -21,6 +21,12 @@ signHint["texthl"] = "DiagnosticSignHint"
 vim.fn.sign_define("DiagnosticSignHint", signHint)
 vim.fn.sign_define("DiagnosticSignInfo", signHint)
 
+-- Lsp Status
+local lsp_status = require("lsp-status")
+
+-- Register the progress handler
+lsp_status.register_progress()
+
 --- Completion Icons
 require("lspkind").init({})
 
@@ -31,7 +37,6 @@ require "lspconfig".clangd.setup {}
 require "lspconfig".cssls.setup {}
 require "lspconfig".html.setup {}
 require "lspconfig".pyright.setup {}
-require "lspconfig".tsserver.setup {}
 require "lspconfig".vimls.setup {}
 require "lspconfig".yamlls.setup {}
 require "lspconfig".texlab.setup {}
@@ -97,6 +102,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
   buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+  lsp_status.on_attach(client, bufnr)
 end
 
 require "lspconfig".jsonls.setup {
@@ -106,7 +112,8 @@ require "lspconfig".jsonls.setup {
   },
   settings = {
     json = require "json-schema"
-  }
+  },
+  capabilities = lsp_status.capabilities
 }
 
 require "lspconfig".tsserver.setup {
@@ -122,19 +129,21 @@ require "lspconfig".tsserver.setup {
   end,
   flags = {
     debounce_text_changes = 150
-  }
+  },
+  capabilities = lsp_status.capabilities
 }
 
 --[[ require "lspconfig".java_language_server.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls", "texlab"}
+local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "rust_analyzer"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150
-    }
+    },
+    capabilities = lsp_status.capabilities
   }
 end

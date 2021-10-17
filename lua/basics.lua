@@ -16,6 +16,7 @@ set.shiftwidth = 2
 set.expandtab = true
 
 vim.cmd [[autocmd FileType markdown setlocal spell spelllang=de,en]]
+vim.cmd [[autocmd FileType tex setlocal spell spelllang=de,en]]
 vim.cmd [[autocmd bufnewfile,bufread *.tsx set filetype=typescriptreact]]
 vim.cmd [[autocmd bufnewfile,bufread *.jsx set filetype=javascriptreact]]
 vim.cmd [[autocmd bufnewfile,bufread Jenkinsfile set filetype=groovy]]
