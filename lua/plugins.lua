@@ -55,7 +55,7 @@ return require("packer").startup(
     }
 
     use {
-      "glepnir/galaxyline.nvim",
+      "NTBBloodbath/galaxyline.nvim",
       branch = "main",
       config = function()
         require "plugins/galaxyline"
@@ -155,9 +155,7 @@ return require("packer").startup(
         "RishabhRD/nvim-lsputils",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
-        "jose-elias-alvarez/nvim-lsp-ts-utils",
-        -- "jose-elias-alvarez/null-ls.nvim",
-        "nvim-lua/lsp-status.nvim"
+        "jose-elias-alvarez/nvim-lsp-ts-utils"
       }
     }
     use {
@@ -237,7 +235,7 @@ return require("packer").startup(
           }
         )
       end,
-      tag = "v0.2.1", -- recommended to pin to a tag and update manually as there may be breaking changes
+      tag = "v0.2.1",
       requires = {
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim"
@@ -258,13 +256,25 @@ return require("packer").startup(
       end
     }
     use {
-      "ms-jpq/coq_nvim",
-      branch = "coq",
+      "hrsh7th/nvim-cmp",
       config = function()
-        require "plugins/coq"
+        require("plugins/cmp")
       end,
-      setup = function()
-        vim.cmd("let g:coq_settings = { 'auto_start': v:true, 'keymaps': {'manual_completion': '<c-f>'} }")
+      requires = {
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lua"
+      }
+    }
+    use {
+      "Saecki/crates.nvim",
+      event = {"BufRead Cargo.toml"},
+      requires = {{"nvim-lua/plenary.nvim"}},
+      config = function()
+        require("crates").setup()
       end
     }
     use "aklt/plantuml-syntax"

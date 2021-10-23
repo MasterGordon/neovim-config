@@ -21,12 +21,6 @@ signHint["texthl"] = "DiagnosticSignHint"
 vim.fn.sign_define("DiagnosticSignHint", signHint)
 vim.fn.sign_define("DiagnosticSignInfo", signHint)
 
--- Lsp Status
-local lsp_status = require("lsp-status")
-
--- Register the progress handler
-lsp_status.register_progress()
-
 --- Completion Icons
 require("lspkind").init({})
 
@@ -64,8 +58,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
   buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-  lsp_status.on_attach(client, bufnr)
 end
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require "lspconfig".jsonls.setup {
   on_attach = on_attach,
@@ -75,7 +69,7 @@ require "lspconfig".jsonls.setup {
   settings = {
     json = require "json-schema"
   },
-  capabilities = lsp_status.capabilities
+  capabilities = capabilities
 }
 
 require "lspconfig".tsserver.setup {
@@ -92,7 +86,7 @@ require "lspconfig".tsserver.setup {
   flags = {
     debounce_text_changes = 150
   },
-  capabilities = lsp_status.capabilities
+  capabilities = capabilities
 }
 
 require "lspconfig".eslint.setup {
@@ -106,7 +100,7 @@ require "lspconfig".eslint.setup {
       return {}
     end
   },
-  capabilities = lsp_status.capabilities
+  capabilities = capabilities
 }
 
 --[[ require "lspconfig".java_language_server.setup {
@@ -120,6 +114,6 @@ for _, lsp in ipairs(servers) do
     flags = {
       debounce_text_changes = 150
     },
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   }
 end
