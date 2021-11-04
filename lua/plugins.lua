@@ -143,15 +143,12 @@ return require("packer").startup(
       end
     }
     use {
-      "RishabhRD/nvim-lsputils",
-      requires = {"RishabhRD/popfix"}
-    }
-    use {
       "neovim/nvim-lspconfig",
       config = function()
         require "plugins/lsp"
       end,
       requires = {
+        "RishabhRD/popfix",
         "hood/popui.nvim",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
