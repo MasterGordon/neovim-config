@@ -235,7 +235,6 @@ return require("packer").startup(
           }
         )
       end,
-      tag = "v0.2.1",
       requires = {
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim"
@@ -298,6 +297,9 @@ return require("packer").startup(
           }
         )
       end
+    }
+    use {
+      "github/copilot.vim"
     }
   end
 )
