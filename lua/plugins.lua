@@ -152,7 +152,7 @@ return require("packer").startup(
         require "plugins/lsp"
       end,
       requires = {
-        "RishabhRD/nvim-lsputils",
+        "hood/popui.nvim",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
         "jose-elias-alvarez/nvim-lsp-ts-utils"
