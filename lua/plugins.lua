@@ -301,6 +301,5 @@ return require("packer").startup(
         require("plugins/copilot")
       end
     }
-    use "xiyaowong/nvim-cursorword"
   end
 )
