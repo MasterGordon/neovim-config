@@ -36,6 +36,15 @@ require("formatter").setup(
             stdin = true
           }
         end
+      },
+      cpp = {
+        function()
+          return {
+            exe = "clang-format",
+            args = {"'" .. vim.api.nvim_buf_get_name(0) .. "'"},
+            stdin = true
+          }
+        end
       }
     }
   }
@@ -45,7 +54,7 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json FormatWrite
+  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json FormatWrite
 augroup END
 ]],
   true
