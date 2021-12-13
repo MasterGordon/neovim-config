@@ -29,28 +29,7 @@ return require("packer").startup(
     use {
       "kyazdani42/nvim-web-devicons",
       config = function()
-        require("nvim-web-devicons").set_icon {
-          ["test.ts"] = {
-            icon = "",
-            color = "#519aba",
-            name = "TsTest"
-          },
-          ["test.tsx"] = {
-            icon = "",
-            color = "#519aba",
-            name = "TsTest"
-          },
-          ["test.js"] = {
-            icon = "",
-            color = "#cbcb41",
-            name = "JsTest"
-          },
-          ["test.jsx"] = {
-            icon = "",
-            color = "#cbcb41",
-            name = "JsTest"
-          }
-        }
+        require("plugins/icons")
       end
     }
 

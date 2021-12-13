@@ -9,6 +9,8 @@ vim.api.nvim_set_keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_de
 vim.api.nvim_set_keymap("n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", {silent = true})
 vim.api.nvim_set_keymap("", "q:", "<Nop>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>h", "<Plug>RestNvim", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader><cr>", ":terminal<cr>i", {silent = true})
+vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {silent = true, noremap = true})
 
 function _G.toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)
