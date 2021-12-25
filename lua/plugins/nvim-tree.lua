@@ -1,4 +1,3 @@
-vim.g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
 vim.g.nvim_tree_indent_markers = 1
 vim.api.nvim_set_keymap("", "<TAB>", ":NvimTreeFindFile<CR>:NvimTreeFocus<CR>", {silent = true})
 
@@ -31,6 +30,20 @@ local tree_cb = require "nvim-tree.config".nvim_tree_callback
 require "nvim-tree".setup(
   {
     auto_close = true,
+    git = {
+      enable = true,
+      ignore = false,
+      timeout = 500
+    },
+    filters = {
+      custom = {
+        ".git",
+        ".webpack",
+        "out",
+        ".out",
+        ".cache"
+      }
+    },
     view = {
       mappings = {
         custom_only = true,
