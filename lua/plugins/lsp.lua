@@ -73,7 +73,7 @@ require "lspconfig".tsserver.setup {
     on_attach(client, bufnr)
   end,
   flags = {
-    debounce_text_changes = 150
+    debounce_text_changes = 300
   },
   capabilities = capabilities
 }
