@@ -45,6 +45,15 @@ require("formatter").setup(
             stdin = true
           }
         end
+      },
+      prisma = {
+        function()
+          return {
+            exe = "npx",
+            args = {"prisma", "format", "--schema=" .. vim.api.nvim_buf_get_name(0)},
+            stdin = false
+          }
+        end
       }
     }
   }

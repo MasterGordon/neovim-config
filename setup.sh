@@ -10,4 +10,5 @@ vscode-css-languageserver-bin \
 vscode-html-languageserver-bin \
 vscode-json-languageserver \
 vscode-langservers-extracted \
-bash-language-server
+bash-language-server \
+@prisma/language-server

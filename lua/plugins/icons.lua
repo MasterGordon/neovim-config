@@ -38,5 +38,10 @@ require("nvim-web-devicons").set_icon {
     icon = "",
     color = "#0288D1",
     name = "TsConfig"
+  },
+  ["prisma"] = {
+    icon = "",
+    color = "#FFFFFF",
+    name = "Prisma"
   }
 }

@@ -280,5 +280,9 @@ return require("packer").startup(
         require("plugins/copilot")
       end
     }
+    use {
+      "ggandor/lightspeed.nvim",
+      requires = {"tpope/vim-repeat"},
+    }
   end
 )
