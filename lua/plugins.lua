@@ -127,6 +127,7 @@ return require("packer").startup(
         require "plugins/lsp"
       end,
       requires = {
+        "jose-elias-alvarez/null-ls.nvim",
         "RishabhRD/popfix",
         "hood/popui.nvim",
         "onsails/lspkind-nvim",
@@ -282,7 +283,7 @@ return require("packer").startup(
     }
     use {
       "ggandor/lightspeed.nvim",
-      requires = {"tpope/vim-repeat"},
+      requires = {"tpope/vim-repeat"}
     }
   end
 )

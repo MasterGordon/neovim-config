@@ -140,6 +140,20 @@ gls.left[12] = {
   }
 }
 
+gls.right[0] = {
+  WordCount = {
+    provider = function()
+      local wc = vim.api.nvim_eval("wordcount()")
+      if wc["visual_words"] then
+        return wc["visual_words"]
+      else
+        return wc["words"]
+      end
+    end,
+    icon = "  ",
+    highlight = {colors("green"), color_bg}
+  }
+}
 gls.right[1] = {
   FileEncode = {
     provider = "FileEncode",
@@ -186,7 +200,7 @@ gls.right[5] = {
     separator = " ",
     separator_highlight = {nil, color_bg},
     condition = condition.hide_in_width,
-    icon = "  ",
+    icon = "  ",
     highlight = {colors("green"), color_bg}
   }
 }
@@ -194,7 +208,7 @@ gls.right[6] = {
   DiffModified = {
     provider = "DiffModified",
     condition = condition.hide_in_width,
-    icon = " 柳",
+    icon = "  ",
     highlight = {colors("orane"), color_bg}
   }
 }
@@ -202,7 +216,7 @@ gls.right[7] = {
   DiffRemove = {
     provider = "DiffRemove",
     condition = condition.hide_in_width,
-    icon = "  ",
+    icon = "  ",
     highlight = {colors("red"), color_bg}
   }
 }

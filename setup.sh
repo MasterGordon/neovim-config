@@ -11,4 +11,5 @@ vscode-html-languageserver-bin \
 vscode-json-languageserver \
 vscode-langservers-extracted \
 bash-language-server \
-@prisma/language-server
+@prisma/language-server \
+cspell
