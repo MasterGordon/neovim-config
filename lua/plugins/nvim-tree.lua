@@ -25,11 +25,15 @@ vim.g.nvim_tree_icons = {
   }
 }
 
+vim.cmd [[
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+autocmd BufRead,BufNewFile NvimTree_1 lua vim.diagnostic.disable()
+]]
+
 local tree_cb = require "nvim-tree.config".nvim_tree_callback
 -- default mappings
 require "nvim-tree".setup(
   {
-    auto_close = true,
     git = {
       enable = true,
       ignore = false,

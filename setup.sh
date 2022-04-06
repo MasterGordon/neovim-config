@@ -12,4 +12,7 @@ vscode-json-languageserver \
 vscode-langservers-extracted \
 bash-language-server \
 @prisma/language-server \
-cspell
+cspell \
+@cspell/dict-de-de
+
+cspell link add @cspell/dict-de-de

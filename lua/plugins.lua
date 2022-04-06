@@ -285,5 +285,6 @@ return require("packer").startup(
       "ggandor/lightspeed.nvim",
       requires = {"tpope/vim-repeat"}
     }
+    use "jghauser/mkdir.nvim"
   end
 )
