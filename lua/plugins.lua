@@ -33,14 +33,14 @@ return require("packer").startup(
       end
     }
 
-    use {
+    --[[ use {
       "NTBBloodbath/galaxyline.nvim",
       branch = "main",
       config = function()
         require "plugins/galaxyline"
       end,
       requires = {"kyazdani42/nvim-web-devicons"}
-    }
+    } ]]
     use {
       "kyazdani42/nvim-tree.lua",
       after = "nvim-web-devicons",
@@ -162,13 +162,13 @@ return require("packer").startup(
         require "plugins/diffview"
       end
     }
-    use {
+    --[[ use {
       "akinsho/nvim-bufferline.lua",
       config = function()
         require "plugins/bufferline"
       end,
       requires = "kyazdani42/nvim-web-devicons"
-    }
+    } ]]
     use {
       "rcarriga/vim-ultest",
       config = function()
@@ -242,7 +242,9 @@ return require("packer").startup(
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-path",
-        "hrsh7th/cmp-nvim-lua"
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-emoji",
+        "David-Kunz/cmp-npm"
       }
     }
     use {
@@ -286,5 +288,42 @@ return require("packer").startup(
       requires = {"tpope/vim-repeat"}
     }
     use "jghauser/mkdir.nvim"
+    use {
+      "zbirenbaum/copilot.lua",
+      event = {"VimEnter"},
+      config = function()
+        vim.defer_fn(
+          function()
+            require("copilot").setup({server_opts_overrides = {trace = "verbose", name = "AI"}})
+          end,
+          100
+        )
+      end
+    }
+    use {
+      "zbirenbaum/copilot-cmp",
+      after = {"copilot.lua", "nvim-cmp"}
+    }
+    use {
+      "David-Kunz/cmp-npm",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      }
+    }
+    use {
+      "SmiteshP/nvim-gps",
+      requires = "nvim-treesitter/nvim-treesitter"
+    }
+    use {
+      "rebelot/heirline.nvim",
+      config = function()
+        require "plugins/heirline"
+      end,
+      requires = {
+        "kyazdani42/nvim-web-devicons",
+        "SmiteshP/nvim-gps",
+        "neovim/nvim-lspconfig"
+      }
+    }
   end
 )

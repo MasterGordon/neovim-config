@@ -1,29 +1,5 @@
-vim.g.nvim_tree_indent_markers = 1
+-- vim.g.nvim_tree_indent_markers = 1
 vim.api.nvim_set_keymap("", "<TAB>", ":NvimTreeFindFile<CR>:NvimTreeFocus<CR>", {silent = true})
-
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "✗",
-    staged = "✓",
-    unmerged = "",
-    renamed = "➜",
-    untracked = "★",
-    deleted = "",
-    ignored = "◌"
-  },
-  folder = {
-    arrow_open = "",
-    arrow_closed = "",
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-    symlink_open = ""
-  }
-}
 
 vim.cmd [[
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
@@ -83,6 +59,42 @@ require "nvim-tree".setup(
           {key = "-", cb = tree_cb("dir_up")},
           {key = "q", cb = tree_cb("close")},
           {key = "?", cb = tree_cb("toggle_help")}
+        }
+      }
+    },
+    renderer = {
+      indent_markers = {
+        enable = true,
+        icons = {
+          corner = "└ ",
+          edge = "│ ",
+          none = "  "
+        }
+      },
+      icons = {
+        webdev_colors = true,
+        glyphs = {
+          default = "",
+          symlink = "",
+          git = {
+            unstaged = "✗",
+            staged = "✓",
+            unmerged = "",
+            renamed = "➜",
+            untracked = "★",
+            deleted = "",
+            ignored = "◌"
+          },
+          folder = {
+            arrow_open = "",
+            arrow_closed = "",
+            default = "",
+            open = "",
+            empty = "",
+            empty_open = "",
+            symlink = "",
+            symlink_open = ""
+          }
         }
       }
     }
