@@ -16,11 +16,11 @@ require "nvim-tree".setup(
       timeout = 500
     },
     filters = {
+      dotfiles = false,
       custom = {
         ".git",
         ".webpack",
-        "out",
-        ".out",
+        "\\.out",
         ".cache"
       }
     },
