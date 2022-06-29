@@ -29,15 +29,15 @@ local colors = {
   purple = "#ae81ff",
   red = "#e95678",
   diag = {
-    warn = utils.get_highlight("DiagnosticWarn").fg,
-    error = utils.get_highlight("DiagnosticError").fg,
-    hint = utils.get_highlight("DiagnosticHint").fg,
-    info = utils.get_highlight("DiagnosticInfo").fg
+    warn = utils.get_highlight("DiagnosticSignWarn").fg,
+    error = utils.get_highlight("DiagnosticSignError").fg,
+    hint = utils.get_highlight("DiagnosticSignHint").fg,
+    info = utils.get_highlight("DiagnosticSignInfo").fg
   },
   git = {
-    del = utils.get_highlight("GitSignsDelete").fg,
-    add = utils.get_highlight("GitSignsAdd").fg,
-    change = utils.get_highlight("GitSignsChange").fg
+    del = "#e95678",
+    add = "#a6e22e",
+    change = "#ae81ff"
   }
 }
 
@@ -433,7 +433,7 @@ local WinBars = {
     condition = function()
       return conditions.buffer_matches(
         {
-          buftype = {"nofile", "prompt", "help", "quickfix"},
+          buftype = {"nofile", "prompt", "help", "quickfix", "nofile", "promt"},
           filetype = {"^git.*", "fugitive"}
         }
       )
@@ -472,5 +472,20 @@ local WinBars = {
   -- A winbar for regular files
   {GSpace, FileNameShortBlock, GSpace, Gps, Align}
 }
+
+vim.api.nvim_create_autocmd(
+  "User",
+  {
+    pattern = "HeirlineInitWinbar",
+    callback = function(args)
+      local buf = args.buf
+      local buftype = vim.tbl_contains({"prompt", "nofile", "help", "quickfix"}, vim.bo[buf].buftype)
+      local filetype = vim.tbl_contains({"gitcommit", "fugitive"}, vim.bo[buf].filetype)
+      if buftype or filetype then
+        vim.opt_local.winbar = nil
+      end
+    end
+  }
+)
 
 require "heirline".setup(StatusLines, WinBars)

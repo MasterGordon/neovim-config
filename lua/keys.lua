@@ -8,7 +8,7 @@ vim.api.nvim_set_keymap("n", "<leader>ft", "<CMD>TodoTelescope<CR>", {silent = t
 vim.api.nvim_set_keymap("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", {silent = true})
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", {silent = true})
 vim.api.nvim_set_keymap("n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", {silent = true})
-vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<cr>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<cr>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>Gitsigns blame_line<cr>", {silent = true})
 vim.api.nvim_set_keymap("", "q:", "<Nop>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>h", "<Plug>RestNvim", {silent = true})

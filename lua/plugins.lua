@@ -162,20 +162,12 @@ return require("packer").startup(
         require "plugins/diffview"
       end
     }
-    --[[ use {
-      "akinsho/nvim-bufferline.lua",
+    use {
+      "akinsho/bufferline.nvim",
       config = function()
         require "plugins/bufferline"
       end,
       requires = "kyazdani42/nvim-web-devicons"
-    } ]]
-    use {
-      "rcarriga/vim-ultest",
-      config = function()
-        require "plugins/ultest"
-      end,
-      requires = {"vim-test/vim-test"},
-      run = ":UpdateRemotePlugins"
     }
     use {
       "vuki656/package-info.nvim",
@@ -321,8 +313,27 @@ return require("packer").startup(
       end,
       requires = {
         "kyazdani42/nvim-web-devicons",
-        "SmiteshP/nvim-gps",
-        "neovim/nvim-lspconfig"
+        "SmiteshP/nvim-gps"
+      },
+      after = {
+        "monokai.nvim",
+        "nvim-lspconfig"
+      }
+    }
+    use "isobit/vim-caddyfile"
+    use {
+      "nvim-neotest/neotest",
+      config = function()
+        require("plugins/neotest")
+      end,
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "antoinemadec/FixCursorHold.nvim",
+        "haydenmeade/neotest-jest"
+      },
+      after = {
+        "monokai.nvim"
       }
     }
   end
