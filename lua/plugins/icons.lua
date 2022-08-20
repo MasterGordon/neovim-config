@@ -43,5 +43,10 @@ require("nvim-web-devicons").set_icon {
     icon = "",
     color = "#FFFFFF",
     name = "Prisma"
+  },
+  ["jar"] = {
+    icon = "",
+    color = "#FFFFFF",
+    name = "Jar"
   }
 }

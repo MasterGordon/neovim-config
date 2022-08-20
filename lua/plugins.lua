@@ -129,12 +129,16 @@ return require("packer").startup(
       requires = {
         "jose-elias-alvarez/null-ls.nvim",
         "RishabhRD/popfix",
-        "hood/popui.nvim",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
         "jose-elias-alvarez/nvim-lsp-ts-utils"
       }
     }
+    use {
+      "weilbith/nvim-code-action-menu",
+      cmd = "CodeActionMenu"
+    }
+
     use {
       "nvim-telescope/telescope.nvim",
       config = function()
