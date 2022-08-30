@@ -51,21 +51,6 @@ return require("packer").startup(
     }
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use {
-      "b3nj5m1n/kommentary",
-      config = function()
-        require("kommentary.config").configure_language(
-          "typescriptreact",
-          {
-            single_line_comment_string = "auto",
-            multi_line_comment_strings = "auto",
-            hook_function = function()
-              require("ts_context_commentstring.internal").update_commentstring()
-            end
-          }
-        )
-      end
-    }
-    use {
       "nvim-treesitter/playground",
       requires = {"nvim-treesitter/nvim-treesitter"}
     }
@@ -93,7 +78,7 @@ return require("packer").startup(
         require "nvim-treesitter.configs".setup {
           context_commentstring = {
             enable = true,
-            enable_autocmd = true
+            enable_autocmd = false
           },
           highlight = {
             enable = true
@@ -114,6 +99,17 @@ return require("packer").startup(
         "windwp/nvim-ts-autotag",
         "windwp/nvim-autopairs"
       }
+    }
+    use {
+      "numToStr/Comment.nvim",
+      config = function()
+        require("Comment").setup {
+          pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+          mappings = {
+            basic = true
+          }
+        }
+      end
     }
     use {
       "mhartington/formatter.nvim",
@@ -166,13 +162,13 @@ return require("packer").startup(
         require "plugins/diffview"
       end
     }
-    use {
-      "akinsho/bufferline.nvim",
-      config = function()
-        require "plugins/bufferline"
-      end,
-      requires = "kyazdani42/nvim-web-devicons"
-    }
+    -- use {
+    --   "akinsho/bufferline.nvim",
+    --   config = function()
+    --     require "plugins/bufferline"
+    --   end,
+    --   requires = "kyazdani42/nvim-web-devicons"
+    -- }
     use {
       "vuki656/package-info.nvim",
       config = function()

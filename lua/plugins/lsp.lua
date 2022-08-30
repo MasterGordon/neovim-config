@@ -119,7 +119,7 @@ require "lspconfig".eslint.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "rust_analyzer", "prismals"}
+local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -129,3 +129,29 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities
   }
 end
+
+nvim_lsp.rust_analyzer.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150
+  },
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      imports = {
+        granularity = {
+          group = "module"
+        },
+        prefix = "crate"
+      },
+      cargo = {
+        buildScripts = {
+          enable = true
+        }
+      },
+      procMacro = {
+        enable = true
+      }
+    }
+  }
+}

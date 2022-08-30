@@ -51,7 +51,8 @@ local cmp_kinds = {
   Struct = "פּ ",
   Event = " ",
   Operator = " ",
-  TypeParameter = " "
+  TypeParameter = " ",
+  Copilot = " "
 }
 
 options = {
