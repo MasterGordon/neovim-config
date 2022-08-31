@@ -418,7 +418,7 @@ local TerminalStatusline = {
 }
 
 local StatusLines = {
-  init = utils.pick_child_on_condition,
+  fallthrough = false,
   SpecialStatusline,
   TerminalStatusline,
   DefaultStatusline
@@ -427,7 +427,7 @@ local StatusLines = {
 local GSpace = {provider = " ", hl = {bg = colors.bg}}
 
 local WinBars = {
-  init = utils.pick_child_on_condition,
+  fallthrough = false,
   {
     -- Hide the winbar for special buffers
     condition = function()

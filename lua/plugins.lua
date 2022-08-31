@@ -33,14 +33,6 @@ return require("packer").startup(
       end
     }
 
-    --[[ use {
-      "NTBBloodbath/galaxyline.nvim",
-      branch = "main",
-      config = function()
-        require "plugins/galaxyline"
-      end,
-      requires = {"kyazdani42/nvim-web-devicons"}
-    } ]]
     use {
       "kyazdani42/nvim-tree.lua",
       after = "nvim-web-devicons",
@@ -49,7 +41,6 @@ return require("packer").startup(
       end,
       requires = {"kyazdani42/nvim-web-devicons", opt = true}
     }
-    use "JoosepAlviste/nvim-ts-context-commentstring"
     use {
       "nvim-treesitter/playground",
       requires = {"nvim-treesitter/nvim-treesitter"}
@@ -134,7 +125,6 @@ return require("packer").startup(
       "weilbith/nvim-code-action-menu",
       cmd = "CodeActionMenu"
     }
-
     use {
       "nvim-telescope/telescope.nvim",
       config = function()
@@ -162,13 +152,6 @@ return require("packer").startup(
         require "plugins/diffview"
       end
     }
-    -- use {
-    --   "akinsho/bufferline.nvim",
-    --   config = function()
-    --     require "plugins/bufferline"
-    --   end,
-    --   requires = "kyazdani42/nvim-web-devicons"
-    -- }
     use {
       "vuki656/package-info.nvim",
       config = function()
@@ -176,7 +159,6 @@ return require("packer").startup(
       end,
       requires = "MunifTanjim/nui.nvim"
     }
-    use {"npxbr/glow.nvim", run = "GlowInstall"}
     use {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
@@ -193,7 +175,6 @@ return require("packer").startup(
         require("gitsigns").setup()
       end
     }
-    use "jbyuki/venn.nvim"
     use "editorconfig/editorconfig-vim"
     use {
       "jameshiew/nvim-magic",
@@ -208,20 +189,6 @@ return require("packer").startup(
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim"
       }
-    }
-
-    use {
-      "mfussenegger/nvim-jdtls",
-      config = function()
-        vim.cmd(
-          [[
-          augroup jdtls_lsp
-          autocmd!
-          autocmd FileType java lua require'plugins/java-lsp'.setup()
-          augroup end
-        ]]
-        )
-      end
     }
     use {
       "hrsh7th/nvim-cmp",
@@ -248,27 +215,6 @@ return require("packer").startup(
       end
     }
     use "aklt/plantuml-syntax"
-    use {
-      "NTBBloodbath/rest.nvim",
-      requires = {"nvim-lua/plenary.nvim"},
-      config = function()
-        require("rest-nvim").setup(
-          {
-            -- Open request results in a horizontal split
-            result_split_horizontal = false,
-            -- Skip SSL verification, useful for unknown certificates
-            skip_ssl_verification = false,
-            -- Highlight request on run
-            highlight = {
-              enabled = true,
-              timeout = 150
-            },
-            -- Jump to request line on run
-            jump_to_request = false
-          }
-        )
-      end
-    }
     use {
       "github/copilot.vim",
       config = function()
@@ -303,17 +249,14 @@ return require("packer").startup(
       }
     }
     use {
-      "SmiteshP/nvim-gps",
-      requires = "nvim-treesitter/nvim-treesitter"
-    }
-    use {
       "rebelot/heirline.nvim",
       config = function()
         require "plugins/heirline"
       end,
       requires = {
         "kyazdani42/nvim-web-devicons",
-        "SmiteshP/nvim-gps"
+        "SmiteshP/nvim-gps",
+        "nvim-treesitter/nvim-treesitter"
       },
       after = {
         "monokai.nvim",
