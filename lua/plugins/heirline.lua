@@ -739,8 +739,6 @@ local function goto_buf(index)
   vim.api.nvim_win_set_buf(0, bufs[index])
 end
 
-print(vim.inspect(get_bufs()))
-
 local function addKey(key, index)
   vim.keymap.set(
     "",
