@@ -50,40 +50,7 @@ return require("packer").startup(
       run = ":TSUpdate",
       -- after = "nvim-compe",
       config = function()
-        local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-        parser_configs.http = {
-          install_info = {
-            url = "https://github.com/NTBBloodbath/tree-sitter-http",
-            files = {"src/parser.c"},
-            branch = "main"
-          }
-        }
-        local npairs = require("nvim-autopairs")
-        npairs.setup(
-          {
-            check_ts = true,
-            enable_check_bracket_line = true
-          }
-        )
-
-        require "nvim-treesitter.configs".setup {
-          context_commentstring = {
-            enable = true,
-            enable_autocmd = false
-          },
-          highlight = {
-            enable = true
-          },
-          indent = {
-            enable = true
-          },
-          autotag = {
-            enable = true
-          },
-          autopairs = {
-            enable = true
-          }
-        }
+        require "plugins/treesitter"
       end,
       requires = {
         "JoosepAlviste/nvim-ts-context-commentstring",
@@ -153,13 +120,6 @@ return require("packer").startup(
       end
     }
     use {
-      "vuki656/package-info.nvim",
-      config = function()
-        require("package-info").setup()
-      end,
-      requires = "MunifTanjim/nui.nvim"
-    }
-    use {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
@@ -176,20 +136,6 @@ return require("packer").startup(
       end
     }
     use "editorconfig/editorconfig-vim"
-    use {
-      "jameshiew/nvim-magic",
-      config = function()
-        require("nvim-magic").setup(
-          {
-            use_default_keymap = false
-          }
-        )
-      end,
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim"
-      }
-    }
     use {
       "hrsh7th/nvim-cmp",
       config = function()
@@ -226,22 +172,6 @@ return require("packer").startup(
       requires = {"tpope/vim-repeat"}
     }
     use "jghauser/mkdir.nvim"
-    use {
-      "zbirenbaum/copilot.lua",
-      event = {"VimEnter"},
-      config = function()
-        vim.defer_fn(
-          function()
-            require("copilot").setup({server_opts_overrides = {trace = "verbose", name = "AI"}})
-          end,
-          100
-        )
-      end
-    }
-    use {
-      "zbirenbaum/copilot-cmp",
-      after = {"copilot.lua", "nvim-cmp"}
-    }
     use {
       "David-Kunz/cmp-npm",
       requires = {
