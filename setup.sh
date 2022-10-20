@@ -16,3 +16,4 @@ cspell \
 @cspell/dict-de-de
 
 cspell link add @cspell/dict-de-de
+dotnet tool install --global csharp-ls

@@ -209,5 +209,18 @@ return require("packer").startup(
         "monokai.nvim"
       }
     }
+    use {
+      "andweeb/presence.nvim",
+      config = function()
+        require("presence"):setup()
+      end
+    }
+    use {
+      "rcarriga/nvim-dap-ui",
+      config = function()
+        require("plugins/dap")
+      end,
+      requires = {"mfussenegger/nvim-dap"}
+    }
   end
 )
