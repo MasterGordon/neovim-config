@@ -654,8 +654,8 @@ local TabLineOffset = {
     local bufnr = vim.api.nvim_win_get_buf(win)
     self.winid = win
 
-    if vim.bo[bufnr].filetype == "NvimTree" then
-      self.title = "NvimTree"
+    if vim.bo[bufnr].filetype == "neo-tree" then
+      self.title = " NeoTree"
       return true
     -- elseif vim.bo[bufnr].filetype == "TagBar" then
     --     ...

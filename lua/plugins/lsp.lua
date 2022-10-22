@@ -1,18 +1,9 @@
 local util = require "lspconfig.util"
 
-local signError = vim.fn.sign_getdefined("DiagnosticSignError")
-signError["text"] = ""
-signError["texthl"] = "DiagnosticSignError"
-vim.fn.sign_define("DiagnosticSignError", signError)
-local signWarn = vim.fn.sign_getdefined("DiagnosticSignWarn")
-signWarn["text"] = ""
-signWarn["texthl"] = "DiagnosticSignWarn"
-vim.fn.sign_define("DiagnosticSignWarn", signWarn)
-local signHint = vim.fn.sign_getdefined("DiagnosticSignHint")
-signHint["text"] = ""
-signHint["texthl"] = "DiagnosticSignHint"
-vim.fn.sign_define("DiagnosticSignHint", signHint)
-vim.fn.sign_define("DiagnosticSignInfo", signHint)
+vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
+vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
+vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
+vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "DiagnosticSignHint"})
 
 --- Completion Icons
 require("lspkind").init({})

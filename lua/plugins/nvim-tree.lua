@@ -1,5 +1,5 @@
 -- vim.g.nvim_tree_indent_markers = 1
-vim.api.nvim_set_keymap("", "<TAB>", ":NvimTreeFindFile<CR>:NvimTreeFocus<CR>", {silent = true})
+-- vim.api.nvim_set_keymap("", "<TAB>", ":NvimTreeFindFile<CR>:NvimTreeFocus<CR>", {silent = true})
 
 vim.cmd [[
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif

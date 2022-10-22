@@ -32,7 +32,6 @@ return require("packer").startup(
         require("plugins/icons")
       end
     }
-
     use {
       "kyazdani42/nvim-tree.lua",
       after = "nvim-web-devicons",
@@ -221,6 +220,22 @@ return require("packer").startup(
         require("plugins/dap")
       end,
       requires = {"mfussenegger/nvim-dap"}
+    }
+    use {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "main",
+      config = function()
+        require("plugins/neo-tree")
+      end,
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+        "s1n7ax/nvim-window-picker"
+      },
+      after = {
+        "monokai.nvim"
+      }
     }
   end
 )
