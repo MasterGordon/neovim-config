@@ -33,14 +33,6 @@ return require("packer").startup(
       end
     }
     use {
-      "kyazdani42/nvim-tree.lua",
-      after = "nvim-web-devicons",
-      config = function()
-        require "plugins/nvim-tree"
-      end,
-      requires = {"kyazdani42/nvim-web-devicons", opt = true}
-    }
-    use {
       "nvim-treesitter/playground",
       requires = {"nvim-treesitter/nvim-treesitter"}
     }
