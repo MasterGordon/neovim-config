@@ -115,7 +115,8 @@ options = {
     -- {name = "buffer"},
     {name = "emoji"},
     {name = "copilot", group_index = 2},
-    {name = "npm", keyword_length = 4}
+    {name = "npm", keyword_length = 4},
+    {name = "nvim_lsp_signature_help"}
   }
 }
 
