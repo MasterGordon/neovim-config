@@ -76,7 +76,8 @@ return require("packer").startup(
         "RishabhRD/popfix",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
-        "jose-elias-alvarez/nvim-lsp-ts-utils"
+        "jose-elias-alvarez/nvim-lsp-ts-utils",
+        "hood/popui.nvim"
       }
     }
     use {

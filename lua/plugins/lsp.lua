@@ -7,6 +7,9 @@ vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "DiagnosticSign
 vim.fn.sign_define("DapBreakpoint", {text = " ", texthl = "DiagnosticSignError"})
 vim.fn.sign_define("DapStopped", {text = " ", texthl = "DiagnosticSignInfo"})
 
+vim.ui.select = require "popui.ui-overrider"
+vim.ui.input = require "popui.input-overrider"
+
 --- Completion Icons
 require("lspkind").init({})
 
@@ -33,6 +36,14 @@ require "lspconfig".yamlls.setup {}
 
 local nvim_lsp = require("lspconfig")
 
+local function codeAction()
+  if vim.bo.filetype == "cs" then
+    vim.lsp.buf.code_action()
+  else
+    vim.cmd [[CodeActionMenu]]
+  end
+end
+
 -- Mappings.
 local opts = {noremap = true, silent = true}
 vim.api.nvim_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -43,7 +54,8 @@ vim.api.nvim_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace
 vim.api.nvim_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 -- buf_set_keymap("n", "<leader>t", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>CodeActionMenu<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>CodeActionMenu<CR>", opts)
+vim.keymap.set("n", "<leader>a", codeAction, opts)
 vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
@@ -112,7 +124,7 @@ require "lspconfig".eslint.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals", "csharp_ls"}
+local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -122,6 +134,17 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities
   }
 end
+nvim_lsp.omnisharp.setup {
+  cmd = {"OmniSharp"},
+  enable_editorconfig_support = true,
+  enable_roslyn_analyzers = true,
+  enable_import_completion = true,
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150
+  },
+  capabilities = capabilities
+}
 
 nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,

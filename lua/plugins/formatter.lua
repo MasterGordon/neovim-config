@@ -54,16 +54,16 @@ require("formatter").setup(
             stdin = false
           }
         end
-      },
-      cs = {
-        function()
-          return {
-            exe = "dotnet",
-            args = {"csharpier", "--write-stdout"},
-            stdin = true
-          }
-        end
       }
+      -- cs = {
+      --   function()
+      --     return {
+      --       exe = "dotnet",
+      --       args = {"csharpier", "--write-stdout"},
+      --       stdin = true
+      --     }
+      --   end
+      -- }
     }
   }
 )
@@ -72,17 +72,17 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.cs FormatWrite
+  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json FormatWrite
 augroup END
 ]],
   true
 )
--- local formatGrp = vim.api.nvim_create_augroup("Format", {clear = true})
--- vim.api.nvim_create_autocmd(
---   "BufWritePre",
---   {
---     pattern = "*.cs",
---     command = "lua vim.lsp.buf.format { async = false }",
---     group = formatGrp
---   }
--- )
+local formatGrp = vim.api.nvim_create_augroup("Format", {clear = true})
+vim.api.nvim_create_autocmd(
+  "BufWritePre",
+  {
+    pattern = "*.cs",
+    command = "lua vim.lsp.buf.format { async = false }",
+    group = formatGrp
+  }
+)
