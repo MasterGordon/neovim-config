@@ -706,7 +706,14 @@ local TabPages = {
 
 local TabLine = {TabLineOffset, BufferLine, TabPages}
 
-require "heirline".setup(StatusLines, WinBars, TabLine)
+-- require "heirline".setup(StatusLines, WinBars, TabLine)
+require "heirline".setup(
+  {
+    statusline = StatusLines,
+    winbar = WinBars,
+    tabline = TabLine
+  }
+)
 vim.o.showtabline = 2
 
 vim.cmd([[au FileType * if index(['wipe', 'delete', 'unload'], &bufhidden) >= 0 | set nobuflisted | endif]])
