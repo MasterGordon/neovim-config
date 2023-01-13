@@ -44,7 +44,7 @@ vim.g.dotnet_get_dll_path = function()
   local cwd = vim.fn.getcwd()
   local solution = vim.fn.glob(cwd .. "/*.csproj")
   local projectName = vim.fn.fnamemodify(solution, ":t:r")
-  local dll = cwd .. "/bin/Debug/net6.0/" .. projectName .. ".dll"
+  local dll = cwd .. "/bin/Debug/net7.0/linux-x64/" .. projectName .. ".dll"
   return dll
 end
 
