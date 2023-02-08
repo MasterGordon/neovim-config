@@ -231,5 +231,21 @@ return require("packer").startup(
         "monokai.nvim"
       }
     }
+    use {
+      "luukvbaal/statuscol.nvim",
+      config = function()
+        require("statuscol").setup(
+          {
+            setopt = true
+          }
+        )
+      end
+    }
+    use {
+      "axelvc/template-string.nvim",
+      config = function()
+        require("template-string").setup()
+      end
+    }
   end
 )
