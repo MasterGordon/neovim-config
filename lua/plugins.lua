@@ -237,7 +237,7 @@ return require("packer").startup(
         require("statuscol").setup(
           {
             setopt = true,
-            ft_ignore = {"nvim-tree"}
+            ft_ignore = {"neo-tree"}
           }
         )
       end
