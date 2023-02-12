@@ -236,7 +236,8 @@ return require("packer").startup(
       config = function()
         require("statuscol").setup(
           {
-            setopt = true
+            setopt = true,
+            ft_ignore = {"nvim-tree"}
           }
         )
       end
