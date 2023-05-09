@@ -95,11 +95,6 @@ options = {
       return vim_item
     end ]]
   },
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end
-  },
   mapping = {
     ["<C-f>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),

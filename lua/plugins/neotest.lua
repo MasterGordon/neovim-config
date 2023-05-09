@@ -26,4 +26,5 @@ local keymap = vim.api.nvim_set_keymap
 
 keymap("n", "<leader>tf", ':lua require("neotest").run.run(vim.fn.expand("%"))<CR>', {silent = true, noremap = true})
 keymap("n", "<leader>tn", ':lua require("neotest").run.run()<CR>', {silent = true})
+keymap("n", "<leader>tr", ':lua require("neotest").run.run()<CR>', {silent = true})
 keymap("n", "<leader>td", ':lua require("neotest").output.open({enter=true,short=true})<CR>', {silent = true})

@@ -24,7 +24,8 @@ require("null-ls").setup(
             diagnostic.severity = vim.diagnostic.severity["WARN"]
           end
         }
-      )
+      ),
+      require("typescript.extensions.null-ls.code-actions")
     }
   }
 )
@@ -32,7 +33,19 @@ require("null-ls").setup(
 --- Languages
 require "lspconfig".html.setup {}
 require "lspconfig".vimls.setup {}
-require "lspconfig".yamlls.setup {}
+require "lspconfig".yamlls.setup {
+  settings = {
+    yaml = {
+      keyOrdering = false,
+      schemas = {
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "/*.k8s.yaml",
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "/*.k8s.yml",
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "k8s/*.yaml",
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "k8s/*.yml"
+      }
+    }
+  }
+}
 
 local nvim_lsp = require("lspconfig")
 
@@ -81,22 +94,37 @@ require "lspconfig".jsonls.setup {
   capabilities = capabilities
 }
 
-require "lspconfig".tsserver.setup {
-  on_attach = function(client, bufnr)
-    local ts_utils = require("nvim-lsp-ts-utils")
+-- require "lspconfig".tsserver.setup {
+--   on_attach = function(client, bufnr)
+--     local ts_utils = require("nvim-lsp-ts-utils")
+--
+--     ts_utils.setup {
+--       -- eslint_bin = "eslint_d",
+--       eslint_enable_diagnostics = false
+--     }
+--     ts_utils.setup_client(client)
+--     on_attach(client, bufnr)
+--   end,
+--   flags = {
+--     debounce_text_changes = 300
+--   },
+--   capabilities = capabilities
+-- }
 
-    ts_utils.setup {
-      -- eslint_bin = "eslint_d",
-      eslint_enable_diagnostics = false
+require("typescript").setup(
+  {
+    disable_commands = false, -- prevent the plugin from creating Vim commands
+    debug = false, -- enable debug logging for commands
+    go_to_source_definition = {
+      fallback = true -- fall back to standard LSP definition on failure
+    },
+    server = {
+      -- pass options to lspconfig's setup method
+      on_attach = on_attach,
+      capabilities = capabilities
     }
-    ts_utils.setup_client(client)
-    on_attach(client, bufnr)
-  end,
-  flags = {
-    debounce_text_changes = 300
-  },
-  capabilities = capabilities
-}
+  }
+)
 
 require "lspconfig".eslint.setup {
   on_attach = on_attach,
@@ -124,7 +152,7 @@ require "lspconfig".eslint.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals"}
+local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals", "solidity"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

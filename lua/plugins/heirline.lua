@@ -1,20 +1,6 @@
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 
-require("nvim-gps").setup(
-  {
-    icons = {
-      ["class-name"] = " ",
-      ["function-name"] = " ",
-      ["method-name"] = " ",
-      ["container-name"] = "炙",
-      ["tag-name"] = "炙"
-    }
-  }
-)
-
-vim.o.laststatus = 3
-
 local colors = {
   bg = "#333842",
   brown = "#504945",
@@ -40,6 +26,8 @@ local colors = {
     change = "#ae81ff"
   }
 }
+
+vim.o.laststatus = 3
 
 local ViMode = {
   -- get vim current mode, this information will be required by the provider
@@ -369,18 +357,6 @@ FileNameShortBlock =
   {provider = "%<"} -- this means that the statusline is cut here when there's not enough space
 )
 
-local Gps = {
-  condition = require("nvim-gps").is_available,
-  provider = function()
-    local loc = require("nvim-gps").get_location()
-    if loc == "" then
-      return ""
-    end
-    return "> " .. loc
-  end,
-  hl = {fg = colors.gray, bg = colors.bg}
-}
-
 local DefaultStatusline = {
   ViMode,
   Space,
@@ -429,18 +405,6 @@ local GSpace = {provider = " ", hl = {bg = colors.bg}}
 local WinBars = {
   fallthrough = false,
   {
-    -- Hide the winbar for special buffers
-    condition = function()
-      return conditions.buffer_matches(
-        {
-          buftype = {"nofile", "prompt", "help", "quickfix", "nofile", "promt"},
-          filetype = {"^git.*", "fugitive"}
-        }
-      )
-    end,
-    provider = ""
-  },
-  {
     -- An inactive winbar for regular files
     condition = function()
       return conditions.buffer_matches({buftype = {"terminal"}}) and not conditions.is_active()
@@ -470,7 +434,12 @@ local WinBars = {
     utils.surround({"", ""}, colors.bright_bg, {hl = {fg = "gray", force = true}, GSpace, FileNameShortBlock, Align})
   },
   -- A winbar for regular files
-  {GSpace, FileNameShortBlock, GSpace, Gps, Align}
+  {
+    GSpace,
+    FileNameShortBlock,
+    -- GSpace,
+    Align
+  }
 }
 
 vim.api.nvim_create_autocmd(
@@ -611,7 +580,7 @@ local TablineCloseButton = {
   end,
   {provider = " "},
   {
-    provider = "",
+    provider = "",
     hl = {fg = "gray"},
     on_click = {
       callback = function(_, minwid)
@@ -711,7 +680,15 @@ require "heirline".setup(
   {
     statusline = StatusLines,
     winbar = WinBars,
-    tabline = TabLine
+    tabline = TabLine,
+    opts = {
+      disable_winbar_cb = function(args)
+        local buf = args.buf
+        local buftype = vim.tbl_contains({"prompt", "nofile", "help", "quickfix"}, vim.bo[buf].buftype)
+        local filetype = vim.tbl_contains({"gitcommit", "fugitive", "Trouble", "packer"}, vim.bo[buf].filetype)
+        return buftype or filetype
+      end
+    }
   }
 )
 vim.o.showtabline = 2

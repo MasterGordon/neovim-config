@@ -1,36 +1,36 @@
 require("nvim-web-devicons").set_icon {
   ["test.ts"] = {
-    icon = "",
+    icon = "",
     color = "#519aba",
     name = "TsTest"
   },
   ["test.tsx"] = {
-    icon = "",
+    icon = "",
     color = "#519aba",
     name = "TsTest"
   },
   ["test.js"] = {
-    icon = "",
+    icon = "",
     color = "#cbcb41",
     name = "JsTest"
   },
   ["test.jsx"] = {
-    icon = "",
+    icon = "",
     color = "#cbcb41",
     name = "JsTest"
   },
   ["readme.md"] = {
-    icon = "",
+    icon = "",
     color = "#42A5F5",
     name = "Readme"
   },
   ["package.json"] = {
-    icon = "",
+    icon = "󰎙",
     color = "#8BC34A",
     name = "PackageJson"
   },
   ["package-lock.json"] = {
-    icon = "",
+    icon = "󰎙",
     color = "#8BC34A",
     name = "PackageJson"
   },
