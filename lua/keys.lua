@@ -7,6 +7,19 @@ vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin'
 vim.api.nvim_set_keymap("n", "<leader>ft", "<CMD>TodoTelescope<CR>", {silent = true})
 vim.api.nvim_set_keymap("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", {silent = true})
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", {silent = true})
+local opts = {noremap = true, silent = true}
+vim.api.nvim_set_keymap(
+  "n",
+  "<C-LeftMouse>",
+  "<LeftMouse><cmd>lua require('telescope.builtin').lsp_definitions()<cr>",
+  opts
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<C-RightMouse>",
+  "<LeftMouse><cmd>lua require('telescope.builtin').lsp_references()<cr>",
+  opts
+)
 vim.api.nvim_set_keymap("n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<cr>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>Gitsigns blame_line<cr>", {silent = true})
@@ -18,6 +31,7 @@ vim.api.nvim_set_keymap("", "<A-Left>", "<C-w><Left>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Up>", "<C-w><Up>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Down>", "<C-w><Down>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Right>", "<C-w><Right>", {silent = true})
+vim.api.nvim_set_keymap("", "<C-p>", "<C-i>", {silent = true})
 
 function _G.toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)
