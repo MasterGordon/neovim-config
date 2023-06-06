@@ -76,7 +76,7 @@ return require("packer").startup(
         "RishabhRD/popfix",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
-        "jose-elias-alvarez/nvim-lsp-ts-utils",
+        "jose-elias-alvarez/typescript.nvim",
         "hood/popui.nvim"
       }
     }
@@ -94,21 +94,9 @@ return require("packer").startup(
       requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}
     }
     use {
-      "nacro90/numb.nvim",
-      config = function()
-        require("numb").setup()
-      end
-    }
-    use {
       "norcalli/nvim-colorizer.lua",
       config = function()
         require "colorizer".setup()
-      end
-    }
-    use {
-      "sindrets/diffview.nvim",
-      config = function()
-        require "plugins/diffview"
       end
     }
     use {
@@ -178,7 +166,6 @@ return require("packer").startup(
       end,
       requires = {
         "kyazdani42/nvim-web-devicons",
-        "SmiteshP/nvim-gps",
         "nvim-treesitter/nvim-treesitter"
       },
       after = {
@@ -230,6 +217,23 @@ return require("packer").startup(
       after = {
         "monokai.nvim"
       }
+    }
+    use {
+      "luukvbaal/statuscol.nvim",
+      config = function()
+        require("statuscol").setup(
+          {
+            -- setopt = true,
+            ft_ignore = {"neo-tree"}
+          }
+        )
+      end
+    }
+    use {
+      "axelvc/template-string.nvim",
+      config = function()
+        require("template-string").setup()
+      end
     }
   end
 )

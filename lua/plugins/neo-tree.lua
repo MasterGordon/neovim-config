@@ -20,6 +20,38 @@ require "window-picker".setup(
 
 require("neo-tree").setup(
   {
+    default_component_configs = {
+      icon = {
+        folder_empty = "󰜌",
+        folder_empty_open = "󰜌"
+      },
+      git_status = {
+        symbols = {
+          renamed = "󰁕",
+          unstaged = "󰄱"
+        }
+      }
+    },
+    document_symbols = {
+      kinds = {
+        File = {icon = "󰈙", hl = "Tag"},
+        Namespace = {icon = "󰌗", hl = "Include"},
+        Package = {icon = "󰏖", hl = "Label"},
+        Class = {icon = "󰌗", hl = "Include"},
+        Property = {icon = "󰆧", hl = "@property"},
+        Enum = {icon = "󰒻", hl = "@number"},
+        Function = {icon = "󰊕", hl = "Function"},
+        String = {icon = "󰀬", hl = "String"},
+        Number = {icon = "󰎠", hl = "Number"},
+        Array = {icon = "󰅪", hl = "Type"},
+        Object = {icon = "󰅩", hl = "Type"},
+        Key = {icon = "󰌋", hl = ""},
+        Struct = {icon = "󰌗", hl = "Type"},
+        Operator = {icon = "󰆕", hl = "Operator"},
+        TypeParameter = {icon = "󰊄", hl = "Type"},
+        StaticMethod = {icon = "󰠄 ", hl = "Function"}
+      }
+    },
     close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
     enable_git_status = true,
@@ -74,7 +106,7 @@ require("neo-tree").setup(
           modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
           deleted = "✖",
           -- this can only be used in the git_status source
-          renamed = "",
+          renamed = "󰁕",
           -- this can only be used in the git_status source
           -- Status type
           untracked = "",
@@ -196,7 +228,22 @@ require("neo-tree").setup(
     },
     source_selector = {
       winbar = true,
-      statusline = false
+      statusline = false,
+      sources = {
+        -- table
+        {
+          source = "filesystem", -- string
+          display_name = " 󰉓 Files" -- string | nil
+        },
+        {
+          source = "buffers", -- string
+          display_name = " 󰈙 Buffers" -- string | nil
+        },
+        {
+          source = "git_status", -- string
+          display_name = " 󰊢 Git" -- string | nil
+        }
+      }
     }
   }
 )
