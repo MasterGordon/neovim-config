@@ -64,6 +64,11 @@ options = {
     ghost_text = true,
     native_menu = false
   },
+  snippet = {
+    expand = function(args)
+      require "luasnip".lsp_expand(args.body)
+    end
+  },
   formatting = {
     kind_icons = cmp_kinds,
     source_names = {

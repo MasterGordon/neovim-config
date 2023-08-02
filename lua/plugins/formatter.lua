@@ -12,6 +12,7 @@ require("formatter").setup(
     filetype = {
       typescriptreact = {prettierd},
       json = {prettierd},
+      jsonc = {prettierd},
       css = {prettierd},
       scss = {prettierd},
       markdown = {prettierd},
@@ -72,7 +73,7 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json FormatWrite
+  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.jsonc FormatWrite
 augroup END
 ]],
   true

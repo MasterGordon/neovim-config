@@ -77,7 +77,8 @@ return require("packer").startup(
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
         "jose-elias-alvarez/typescript.nvim",
-        "hood/popui.nvim"
+        "hood/popui.nvim",
+        "OmniSharp/omnisharp-vim"
       }
     }
     use {
@@ -116,6 +117,7 @@ return require("packer").startup(
       end
     }
     use "editorconfig/editorconfig-vim"
+    use {"L3MON4D3/LuaSnip"}
     use {
       "hrsh7th/nvim-cmp",
       config = function()
@@ -166,7 +168,8 @@ return require("packer").startup(
       end,
       requires = {
         "kyazdani42/nvim-web-devicons",
-        "nvim-treesitter/nvim-treesitter"
+        "nvim-treesitter/nvim-treesitter",
+        "j-hui/fidget.nvim"
       },
       after = {
         "monokai.nvim",

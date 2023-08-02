@@ -1,5 +1,6 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 vim.api.nvim_set_keymap("", "<TAB>", ":Neotree reveal<CR>", {silent = true})
+-- require "window-picker".setup()
 require "window-picker".setup(
   {
     autoselect_one = true,
@@ -14,7 +15,25 @@ require "window-picker".setup(
       }
     },
     selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    other_win_hl_color = "#519aba"
+    highlights = {
+      statusline = {
+        focused = {
+          bg = "#519aba"
+        },
+        unfocused = {
+          bg = "#519aba"
+        }
+      },
+      winbar = {
+        focused = {
+          bg = "#519aba"
+        },
+        unfocused = {
+          bg = "#519aba"
+        }
+      }
+    }
+    -- other_win_hl_color = "#519aba"
   }
 )
 
@@ -153,7 +172,7 @@ require("neo-tree").setup(
         ["m"] = {
           "move",
           config = {
-            show_path = "absoulte"
+            show_path = "absolute"
           }
         },
         ["q"] = "close_window",
