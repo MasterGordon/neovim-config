@@ -34,7 +34,6 @@ require "window-picker".setup(
       }
     }
     -- other_win_hl_color = "#519aba"
->>>>>>> 0c8096cb6eee895e8f52091b51923d6e3d7ff9aa
   }
 )
 
