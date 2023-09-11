@@ -1,3 +1,3 @@
-require "plugins"
 require "basics"
+require "plugins"
 require "keys"

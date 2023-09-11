@@ -1,5 +1,6 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 vim.api.nvim_set_keymap("", "<TAB>", ":Neotree reveal<CR>", {silent = true})
+-- require "window-picker".setup()
 require "window-picker".setup(
   {
     autoselect_one = true,
@@ -13,7 +14,27 @@ require "window-picker".setup(
         buftype = {"terminal", "quickfix"}
       }
     },
-    selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    highlights = {
+      statusline = {
+        focused = {
+          bg = "#519aba"
+        },
+        unfocused = {
+          bg = "#519aba"
+        }
+      },
+      winbar = {
+        focused = {
+          bg = "#519aba"
+        },
+        unfocused = {
+          bg = "#519aba"
+        }
+      }
+    }
+    -- other_win_hl_color = "#519aba"
+>>>>>>> 0c8096cb6eee895e8f52091b51923d6e3d7ff9aa
   }
 )
 
@@ -152,7 +173,7 @@ require("neo-tree").setup(
         ["m"] = {
           "move",
           config = {
-            show_path = "absoulte"
+            show_path = "absolute"
           }
         },
         ["q"] = "close_window",
@@ -174,7 +195,7 @@ require("neo-tree").setup(
         never_show = {},
         never_show_by_pattern = {}
       },
-      follow_current_file = false, -- This will find and focus the file in the active buffer every
+      follow_current_file = {enabled = false}, -- This will find and focus the file in the active buffer every
       -- time the current file is changed while the tree is open.
       group_empty_dirs = false, -- when true, empty folders will be grouped together
       hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
@@ -199,7 +220,7 @@ require("neo-tree").setup(
       }
     },
     buffers = {
-      follow_current_file = true, -- This will find and focus the file in the active buffer every
+      follow_current_file = {enabled = true}, -- This will find and focus the file in the active buffer every
       -- time the current file is changed while the tree is open.
       group_empty_dirs = true, -- when true, empty folders will be grouped together
       show_unloaded = true,

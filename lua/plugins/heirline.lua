@@ -278,6 +278,19 @@ local WorkDir = {
   hl = {fg = colors.blue, bold = true, bg = colors.bg}
 }
 
+require("fidget").setup(
+  {
+    window = {
+      blend = 0
+    },
+    sources = {
+      ["null-ls"] = {
+        ignore = true
+      }
+    }
+  }
+)
+
 local TerminalName = {
   -- we could add a condition to check that buftype == 'terminal'
   -- or we could do that later (see #conditional-statuslines below)
