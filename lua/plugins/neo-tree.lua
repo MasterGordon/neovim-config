@@ -13,8 +13,7 @@ require "window-picker".setup(
         buftype = {"terminal", "quickfix"}
       }
     },
-    selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    other_win_hl_color = "#519aba"
+    selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   }
 )
 
