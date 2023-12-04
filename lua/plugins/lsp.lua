@@ -30,6 +30,16 @@ require("null-ls").setup(
   }
 )
 
+-- local lsp = require "lspconfig"
+-- vim.lsp.start(
+--   {
+--     cmd = {"bun", "/home/gordon/git/lsp/index.ts", "--stdio"},
+--     filetypes = {"typescript"},
+--     name = "blacklist",
+--     root_dir = vim.fn.getcwd()
+--   }
+-- )
+
 --- Languages
 require "lspconfig".html.setup {}
 require "lspconfig".vimls.setup {}
@@ -152,7 +162,7 @@ require "lspconfig".eslint.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals", "solidity"}
+local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals", "solidity", "zls"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

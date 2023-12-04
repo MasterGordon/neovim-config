@@ -41,7 +41,7 @@ options = {
   },
   snippet = {
     expand = function(args)
-      require "luasnip".lsp_expand(args.body)
+      -- require "luasnip".lsp_expand(args.body)
     end
   },
   formatting = {
@@ -85,7 +85,7 @@ options = {
   sources = {
     {name = "nvim_lsp"},
     {name = "path"},
-    {name = "luasnip"},
+    -- {name = "luasnip"},
     {name = "nvim_lua"},
     -- {name = "buffer"},
     {name = "emoji"},

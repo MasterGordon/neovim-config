@@ -280,13 +280,13 @@ local WorkDir = {
 
 require("fidget").setup(
   {
-    window = {
-      blend = 0
-    },
-    sources = {
-      ["null-ls"] = {
-        ignore = true
+    notification = {
+      window = {
+        winblend = 0
       }
+    },
+    progress = {
+      ignore = {"null-ls"}
     }
   }
 )
