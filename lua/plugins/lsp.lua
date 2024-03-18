@@ -172,6 +172,7 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities
   }
 end
+
 nvim_lsp.omnisharp.setup {
   cmd = {"OmniSharp"},
   enable_editorconfig_support = true,

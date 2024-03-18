@@ -14,11 +14,14 @@ npairs.setup(
   }
 )
 
-require "nvim-treesitter.configs".setup {
-  context_commentstring = {
-    enable = true,
+local tscc = require("ts_context_commentstring.config")
+tscc.update(
+  {
     enable_autocmd = false
-  },
+  }
+)
+
+require "nvim-treesitter.configs".setup {
   highlight = {
     enable = true
   },

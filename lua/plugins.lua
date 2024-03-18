@@ -37,8 +37,6 @@ require("lazy").setup(
     },
     {
       "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-      -- after = "nvim-compe",
       config = function()
         require "plugins/treesitter"
       end,
@@ -50,6 +48,7 @@ require("lazy").setup(
     },
     {
       "numToStr/Comment.nvim",
+      after = "nvim-ts-context-commentstring",
       config = function()
         require("Comment").setup {
           pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
