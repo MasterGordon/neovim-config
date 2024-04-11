@@ -162,7 +162,7 @@ require "lspconfig".eslint.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals", "solidity", "zls", "gleam"}
+local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals", "solidity", "zls", "gleam", "intelephense"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
