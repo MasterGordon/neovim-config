@@ -207,7 +207,7 @@ require("lazy").setup(
       config = function()
         require("plugins/dap")
       end,
-      dependencies = {"mfussenegger/nvim-dap"}
+      dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"}
     },
     {
       "nvim-neo-tree/neo-tree.nvim",
