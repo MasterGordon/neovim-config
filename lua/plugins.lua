@@ -80,17 +80,29 @@ require("lazy").setup(
       }
     },
     {
-      "weilbith/nvim-code-action-menu",
-      cmd = "CodeActionMenu"
-    },
-    {
       "nvim-telescope/telescope.nvim",
       config = function()
-        require("telescope").setup {
-          file_ignore_patterns = {"package-lock.json"}
+        local dropdown_configs = {
+          layout_config = {
+            prompt_position = "top",
+            vertical = {
+              width = 80,
+              height = 12
+            }
+          },
+          border = {}
         }
+        require("telescope").setup {
+          file_ignore_patterns = {"package-lock.json"},
+          extensions = {
+            ["ui-select"] = {
+              require("telescope.themes").get_dropdown(dropdown_configs)
+            }
+          }
+        }
+        require("telescope").load_extension("ui-select")
       end,
-      dependencies = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}
+      dependencies = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope-ui-select.nvim"}
     },
     {
       "norcalli/nvim-colorizer.lua",

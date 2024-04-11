@@ -60,11 +60,11 @@ require "lspconfig".yamlls.setup {
 local nvim_lsp = require("lspconfig")
 
 local function codeAction()
-  if vim.bo.filetype == "cs" then
-    vim.lsp.buf.code_action()
-  else
-    vim.cmd [[CodeActionMenu]]
-  end
+  -- if vim.bo.filetype == "cs" then
+  vim.lsp.buf.code_action()
+  -- else
+  --   vim.cmd [[CodeActionMenu]]
+  -- end
 end
 
 -- Mappings.
