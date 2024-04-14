@@ -14,7 +14,8 @@ bash-language-server@latest \
 @prisma/language-server@latest \
 cspell@latest \
 @cspell/dict-de-de@latest \
-tsx@latest
+tsx@latest \
+intelephense
 
 cspell link add @cspell/dict-de-de
 dotnet tool install --global csharp-ls

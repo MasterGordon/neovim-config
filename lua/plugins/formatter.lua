@@ -82,7 +82,7 @@ local formatGrp = vim.api.nvim_create_augroup("Format", {clear = true})
 vim.api.nvim_create_autocmd(
   "BufWritePre",
   {
-    pattern = "*.cs",
+    pattern = "*.cs,*.php",
     command = "lua vim.lsp.buf.format { async = false }",
     group = formatGrp
   }
