@@ -15,7 +15,8 @@ bash-language-server@latest \
 cspell@latest \
 @cspell/dict-de-de@latest \
 tsx@latest \
-intelephense
+intelephense \
+@vtsls/language-server
 
 cspell link add @cspell/dict-de-de
 dotnet tool install --global csharp-ls

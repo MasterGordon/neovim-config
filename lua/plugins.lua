@@ -21,6 +21,7 @@ require("lazy").setup(
     "wbthomason/packer.nvim",
     {
       "MasterGordon/monokai.nvim",
+      -- dir = "$HOME/git/monokai.nvim",
       config = function()
         require("monokai").setup()
       end
@@ -76,7 +77,8 @@ require("lazy").setup(
         "ray-x/lsp_signature.nvim",
         "jose-elias-alvarez/typescript.nvim",
         "hood/popui.nvim",
-        "OmniSharp/omnisharp-vim"
+        "OmniSharp/omnisharp-vim",
+        "yioneko/nvim-vtsls"
       }
     },
     {
@@ -157,10 +159,16 @@ require("lazy").setup(
       end
     },
     "aklt/plantuml-syntax",
+    -- {
+    --   "github/copilot.vim",
+    --   config = function()
+    --     require("plugins/copilot")
+    --   end
+    -- },
     {
-      "github/copilot.vim",
+      "supermaven-inc/supermaven-nvim",
       config = function()
-        require("plugins/copilot")
+        require("supermaven-nvim").setup({})
       end
     },
     {
@@ -193,8 +201,9 @@ require("lazy").setup(
       config = function()
         require("plugins/neotest")
       end,
-      event = {"BufRead *.test.*,*.spec.*,*Test.*"},
+      event = {"BufRead *.test.*,*.spec.*,*Test.*,*.zig"},
       dependencies = {
+        "lawrence-laz/neotest-zig",
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
         "antoinemadec/FixCursorHold.nvim",

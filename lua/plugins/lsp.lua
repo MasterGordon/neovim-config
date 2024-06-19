@@ -24,8 +24,8 @@ require("null-ls").setup(
             diagnostic.severity = vim.diagnostic.severity["WARN"]
           end
         }
-      ),
-      require("typescript.extensions.null-ls.code-actions")
+      )
+      -- require("typescript.extensions.null-ls.code-actions")
     }
   }
 )
@@ -79,6 +79,7 @@ vim.api.nvim_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.bu
 vim.api.nvim_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>CodeActionMenu<CR>", opts)
 vim.keymap.set("n", "<leader>a", codeAction, opts)
+vim.keymap.set("v", "<leader>a", codeAction, opts)
 vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
@@ -121,20 +122,21 @@ require "lspconfig".jsonls.setup {
 --   capabilities = capabilities
 -- }
 
-require("typescript").setup(
-  {
-    disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false, -- enable debug logging for commands
-    go_to_source_definition = {
-      fallback = true -- fall back to standard LSP definition on failure
-    },
-    server = {
-      -- pass options to lspconfig's setup method
-      on_attach = on_attach,
-      capabilities = capabilities
-    }
-  }
-)
+require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+-- require("typescript").setup(
+--   {
+--     disable_commands = false, -- prevent the plugin from creating Vim commands
+--     debug = false, -- enable debug logging for commands
+--     go_to_source_definition = {
+--       fallback = true -- fall back to standard LSP definition on failure
+--     },
+--     server = {
+--       -- pass options to lspconfig's setup method
+--       on_attach = on_attach,
+--       capabilities = capabilities
+--     }
+--   }
+-- )
 
 require "lspconfig".eslint.setup {
   on_attach = on_attach,
@@ -162,7 +164,20 @@ require "lspconfig".eslint.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {"pyright", "bashls", "clangd", "cssls", "texlab", "prismals", "solidity", "zls", "gleam", "intelephense"}
+local servers = {
+  "pyright",
+  "bashls",
+  "clangd",
+  "cssls",
+  "texlab",
+  "prismals",
+  "solidity",
+  "zls",
+  "gleam",
+  "intelephense",
+  "sourcekit",
+  "vtsls"
+}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

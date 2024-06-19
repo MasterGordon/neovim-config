@@ -5,7 +5,8 @@ require("neotest").setup(
         {
           jestCommand = "npx jest"
         }
-      )
+      ),
+      require("neotest-zig")
     },
     icons = {
       passed = "🌈",

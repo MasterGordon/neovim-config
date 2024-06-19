@@ -55,6 +55,14 @@ require("formatter").setup(
             stdin = false
           }
         end
+      },
+      swift = {
+        function()
+          return {
+            exe = "swift-format",
+            stdin = true
+          }
+        end
       }
       -- cs = {
       --   function()
@@ -73,7 +81,7 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.jsonc FormatWrite
+  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.jsonc,*.swift FormatWrite
 augroup END
 ]],
   true
