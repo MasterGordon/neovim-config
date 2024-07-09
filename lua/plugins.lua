@@ -103,13 +103,11 @@ require("lazy").setup(
           }
         }
         require("telescope").load_extension("ui-select")
-        require("telescope").load_extension("jsonfly")
       end,
       dependencies = {
         "nvim-lua/popup.nvim",
         "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-ui-select.nvim",
-        "Myzel394/jsonfly.nvim"
+        "nvim-telescope/telescope-ui-select.nvim"
       }
     },
     {
