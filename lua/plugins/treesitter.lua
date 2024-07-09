@@ -14,6 +14,8 @@ npairs.setup(
   }
 )
 
+require("nvim-ts-autotag").setup({})
+
 local tscc = require("ts_context_commentstring.config")
 tscc.update(
   {
@@ -29,9 +31,6 @@ require "nvim-treesitter.configs".setup {
     enable = true
   },
   autotag = {
-    enable = true
-  },
-  autopairs = {
     enable = true
   }
 }
