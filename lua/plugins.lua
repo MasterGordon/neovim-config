@@ -48,6 +48,24 @@ require("lazy").setup(
       }
     },
     {
+      "Chaitanyabsprip/fastaction.nvim",
+      ---@type FastActionConfig
+      opts = {
+        popup = {
+          dismiss_keys = {"j", "k", "<c-c>", "q", "<esc>"},
+          border = "rounded",
+          hide_cursor = true,
+          highlight = {
+            divider = "FloatBorder",
+            key = "MoreMsg",
+            title = "Title",
+            window = "NormalFloat"
+          },
+          title = "Select one of:"
+        }
+      }
+    },
+    {
       "numToStr/Comment.nvim",
       after = "nvim-ts-context-commentstring",
       config = function()

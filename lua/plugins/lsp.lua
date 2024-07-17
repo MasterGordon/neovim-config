@@ -78,8 +78,12 @@ vim.api.nvim_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.bu
 -- buf_set_keymap("n", "<leader>t", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>CodeActionMenu<CR>", opts)
-vim.keymap.set("n", "<leader>a", codeAction, opts)
-vim.keymap.set("v", "<leader>a", codeAction, opts)
+-- vim.keymap.set("n", "<leader>a", codeAction, opts)
+-- vim.keymap.set("v", "<leader>a", codeAction, opts)
+
+vim.keymap.set("n", "<leader>a", '<cmd>lua require("fastaction").code_action()<CR>', {buffer = bufnr})
+vim.keymap.set("v", "<leader>a", "<esc><cmd>lua require('fastaction').range_code_action()<CR>", {buffer = bufnr})
+
 vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
