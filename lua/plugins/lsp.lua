@@ -7,18 +7,59 @@ vim.fn.sign_define("DiagnosticSignHint", {text = " ", texthl = "DiagnosticSig
 vim.fn.sign_define("DapBreakpoint", {text = " ", texthl = "DiagnosticSignError"})
 vim.fn.sign_define("DapStopped", {text = " ", texthl = "DiagnosticSignInfo"})
 
-vim.ui.select = require "popui.ui-overrider"
+-- vim.ui.select = require "popui.ui-overrider"
 vim.ui.input = require "popui.input-overrider"
+
+-- common servers
+local common_servers = {
+  "pyright",
+  "bashls",
+  "clangd",
+  "cssls",
+  "texlab",
+  "prismals",
+  "solidity",
+  "zls",
+  -- "gleam",
+  "intelephense",
+  "vtsls",
+  "lua_ls",
+  "html",
+  "vimls",
+  "yamlls"
+}
+local extra_servers = {
+  "vtsls",
+  "eslint",
+  "jsonls",
+  "omnisharp",
+  "rust_analyzer"
+}
+
+-- Ensure that required tools are installed
+require("mason").setup()
+require("mason-lspconfig").setup(
+  {
+    ensure_installed = vim.tbl_extend("force", common_servers, extra_servers)
+  }
+)
+require("mason-null-ls").setup(
+  {
+    ensure_installed = {"cspell"}
+  }
+)
 
 --- Completion Icons
 require("lspkind").init({})
 
 --- Null-LS
 
+local cspell = require("cspell")
 require("null-ls").setup(
   {
     sources = {
-      require("null-ls").builtins.diagnostics.cspell.with(
+      cspell.code_actions,
+      cspell.diagnostics.with(
         {
           diagnostics_postprocess = function(diagnostic)
             diagnostic.severity = vim.diagnostic.severity["WARN"]
@@ -41,22 +82,6 @@ require("null-ls").setup(
 -- )
 
 --- Languages
-require "lspconfig".html.setup {}
-require "lspconfig".vimls.setup {}
-require "lspconfig".yamlls.setup {
-  settings = {
-    yaml = {
-      keyOrdering = false,
-      schemas = {
-        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "/*.k8s.yaml",
-        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "/*.k8s.yml",
-        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "k8s/*.yaml",
-        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/master/all.json"] = "k8s/*.yml"
-      }
-    }
-  }
-}
-
 local nvim_lsp = require("lspconfig")
 
 local function codeAction()
@@ -78,11 +103,11 @@ vim.api.nvim_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.bu
 -- buf_set_keymap("n", "<leader>t", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>CodeActionMenu<CR>", opts)
--- vim.keymap.set("n", "<leader>a", codeAction, opts)
--- vim.keymap.set("v", "<leader>a", codeAction, opts)
+vim.keymap.set("n", "<leader>a", codeAction, opts)
+vim.keymap.set("v", "<leader>a", codeAction, opts)
 
-vim.keymap.set("n", "<leader>a", '<cmd>lua require("fastaction").code_action()<CR>', {buffer = bufnr})
-vim.keymap.set("v", "<leader>a", "<esc><cmd>lua require('fastaction').range_code_action()<CR>", {buffer = bufnr})
+-- vim.keymap.set("n", "<leader>a", '<cmd>lua require("fastaction").code_action()<CR>', {buffer = bufnr})
+-- vim.keymap.set("v", "<leader>a", "<esc><cmd>lua require('fastaction').range_code_action()<CR>", {buffer = bufnr})
 
 vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
@@ -109,38 +134,7 @@ require "lspconfig".jsonls.setup {
   capabilities = capabilities
 }
 
--- require "lspconfig".tsserver.setup {
---   on_attach = function(client, bufnr)
---     local ts_utils = require("nvim-lsp-ts-utils")
---
---     ts_utils.setup {
---       -- eslint_bin = "eslint_d",
---       eslint_enable_diagnostics = false
---     }
---     ts_utils.setup_client(client)
---     on_attach(client, bufnr)
---   end,
---   flags = {
---     debounce_text_changes = 300
---   },
---   capabilities = capabilities
--- }
-
 require("lspconfig.configs").vtsls = require("vtsls").lspconfig
--- require("typescript").setup(
---   {
---     disable_commands = false, -- prevent the plugin from creating Vim commands
---     debug = false, -- enable debug logging for commands
---     go_to_source_definition = {
---       fallback = true -- fall back to standard LSP definition on failure
---     },
---     server = {
---       -- pass options to lspconfig's setup method
---       on_attach = on_attach,
---       capabilities = capabilities
---     }
---   }
--- )
 
 require "lspconfig".eslint.setup {
   on_attach = on_attach,
@@ -168,21 +162,7 @@ require "lspconfig".eslint.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
 } ]]
-local servers = {
-  "pyright",
-  "bashls",
-  "clangd",
-  "cssls",
-  "texlab",
-  "prismals",
-  "solidity",
-  "zls",
-  "gleam",
-  "intelephense",
-  "sourcekit",
-  "vtsls"
-}
-for _, lsp in ipairs(servers) do
+for _, lsp in ipairs(common_servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
@@ -305,26 +285,3 @@ nvim_lsp.rust_analyzer.setup {
     }
   }
 }
-
--- Godot
-
--- vim.api.nvim_create_autocmd(
---   "FileType",
---   {
---     -- This handler will fire when the buffer's 'filetype' is "python"
---     pattern = "gd",
---     callback = function(ev)
---       vim.lsp.start(
---         {
---           name = "Godot C# Language Server",
---           cmd = vim.lsp.rpc.connect("127.0.0.1", 6008),
---           -- Set the "root directory" to the parent directory of the file in the
---           -- current buffer (`ev.buf`) that contains either a "setup.py" or a
---           -- "pyproject.toml" file. Files that share a root directory will reuse
---           -- the connection to the same LSP server.
---           root_dir = vim.fs.root(ev.buf, {".git"})
---         }
---       )
---     end
---   }
--- )

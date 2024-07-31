@@ -16,6 +16,27 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local quick_prompts = {
+  ["Code actions"] = true
+}
+local selectX = function(n)
+  return function(bufnr)
+    local a = require("telescope.actions")
+    local s = require("telescope.actions.state")
+    local picker_name = s.get_current_picker(bufnr).prompt_title
+    if not quick_prompts[picker_name] then
+      -- Disable quick prompts to not press by accident
+      -- TODO: Still type the number
+      return
+    end
+    a.move_to_top(bufnr)
+    for _ = 1, n - 1 do
+      a.move_selection_next(bufnr)
+    end
+    a.select_default(bufnr)
+  end
+end
+
 require("lazy").setup(
   {
     "wbthomason/packer.nvim",
@@ -48,24 +69,6 @@ require("lazy").setup(
       }
     },
     {
-      "Chaitanyabsprip/fastaction.nvim",
-      ---@type FastActionConfig
-      opts = {
-        popup = {
-          dismiss_keys = {"j", "k", "<c-c>", "q", "<esc>"},
-          border = "rounded",
-          hide_cursor = true,
-          highlight = {
-            divider = "FloatBorder",
-            key = "MoreMsg",
-            title = "Title",
-            window = "NormalFloat"
-          },
-          title = "Select one of:"
-        }
-      }
-    },
-    {
       "numToStr/Comment.nvim",
       after = "nvim-ts-context-commentstring",
       config = function()
@@ -89,14 +92,19 @@ require("lazy").setup(
         require "plugins/lsp"
       end,
       dependencies = {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
+        "davidmh/cspell.nvim",
         "RishabhRD/popfix",
         "onsails/lspkind-nvim",
         "ray-x/lsp_signature.nvim",
         "jose-elias-alvarez/typescript.nvim",
         "hood/popui.nvim",
         "OmniSharp/omnisharp-vim",
-        "yioneko/nvim-vtsls"
+        "yioneko/nvim-vtsls",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+        "jay-babu/mason-null-ls.nvim"
       }
     },
     {
@@ -117,6 +125,25 @@ require("lazy").setup(
           extensions = {
             ["ui-select"] = {
               require("telescope.themes").get_dropdown(dropdown_configs)
+            }
+          },
+          defaults = {
+            mappings = {
+              i = {
+                ["<Esc>"] = "close",
+                ["n"] = {require("telescope.actions").move_selection_next, type = "action"},
+                ["1"] = {selectX(1), type = "action"},
+                ["2"] = {selectX(2), type = "action"},
+                ["3"] = {selectX(3), type = "action"},
+                ["4"] = {selectX(4), type = "action"},
+                ["5"] = {selectX(5), type = "action"},
+                ["6"] = {selectX(6), type = "action"},
+                ["7"] = {selectX(7), type = "action"},
+                ["8"] = {selectX(8), type = "action"},
+                ["9"] = {selectX(9), type = "action"},
+                ["0"] = {selectX(10), type = "action"}
+              },
+              n = {}
             }
           }
         }
@@ -163,8 +190,14 @@ require("lazy").setup(
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-emoji",
         "David-Kunz/cmp-npm",
-        "hrsh7th/cmp-nvim-lsp-signature-help"
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "saadparwaiz1/cmp_luasnip"
       }
+    },
+    {
+      "L3MON4D3/LuaSnip",
+      version = "v2.*",
+      build = "make install_jsregexp"
     },
     {
       "saecki/crates.nvim",
