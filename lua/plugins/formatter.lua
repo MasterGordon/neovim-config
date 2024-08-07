@@ -96,22 +96,11 @@ vim.api.nvim_create_autocmd(
   }
 )
 
-local function organize_imports()
-  local params = {
-    command = "typescript.organizeImports",
-    arguments = {vim.api.nvim_buf_get_name(0)},
-    title = ""
-  }
-  vim.lsp.buf.execute_command(params)
-end
-local organizeImportsGrp = vim.api.nvim_create_augroup("OrgImports", {clear = true})
-vim.api.nvim_create_autocmd(
-  "BufWritePre",
-  {
-    pattern = "*.ts,*.tsx",
-    callback = function(ev)
-      organize_imports()
-    end,
-    group = formatGrp
-  }
-)
+-- local function organize_imports()
+--   local params = {
+--     command = "typescript.organizeImports",
+--     arguments = {vim.api.nvim_buf_get_name(0)},
+--     title = ""
+--   }
+--   vim.lsp.buf.execute_command(params)
+-- end
