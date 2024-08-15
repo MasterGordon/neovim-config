@@ -43,43 +43,16 @@ vim.api.nvim_set_keymap("", "<A-Left>", "<C-w><Left>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Up>", "<C-w><Up>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Down>", "<C-w><Down>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Right>", "<C-w><Right>", {silent = true})
-vim.api.nvim_set_keymap("", "<C-p>", "<C-i>", {silent = true})
+vim.api.nvim_set_keymap("", "<C-p>", "<C-i>", {silent = true, noremap = true})
 
-function _G.toggle_venn()
-  local venn_enabled = vim.inspect(vim.b.venn_enabled)
-  if (venn_enabled == "nil") then
-    vim.b.venn_enabled = true
-    vim.cmd [[setlocal ve=all]]
-    -- draw a line on HJKL keystokes
-    vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<cr>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<cr>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<cr>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<cr>", {noremap = true})
-    -- draw a box by pressing "b" with visual selection
-    vim.api.nvim_buf_set_keymap(0, "v", "b", ":VBox<cr>", {noremap = true})
-  else
-    vim.cmd [[setlocal ve=]]
-    vim.cmd [[mapclear <buffer>]]
-    vim.b.venn_enabled = nil
-  end
+local insert_random_uuid = function()
+  local id, _ = vim.fn.system("uuidgen"):gsub("\n", ""):gsub("-", ""):upper()
+  vim.api.nvim_put({id}, "c", true, true)
 end
--- toggle keymappings for venn using <leader>v
-vim.api.nvim_set_keymap("n", "<leader>v", ":lua toggle_venn()<cr>", {noremap = true})
-vim.api.nvim_set_keymap(
-  "v",
-  "<Leader>mc",
-  "<Cmd>lua require('nvim-magic.flows').append_completion(require('nvim-magic').backends.default)<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "v",
-  "<Leader>ma",
-  "<Cmd>lua require('nvim-magic.flows').suggest_alteration(require('nvim-magic').backends.default)<CR>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "v",
-  "<Leader>md",
-  "<Cmd>lua require('nvim-magic.flows').suggest_docstring(require('nvim-magic').backends.default)<CR>",
-  {}
-)
+local insert_random_uuid_dashed = function()
+  local id, _ = vim.fn.system("uuidgen"):gsub("\n", ""):upper()
+  vim.api.nvim_put({id}, "c", true, true)
+end
+
+vim.keymap.set("n", "<leader>u", insert_random_uuid, {noremap = true, silent = true})
+vim.keymap.set("n", "<leader>U", insert_random_uuid_dashed, {noremap = true, silent = true})

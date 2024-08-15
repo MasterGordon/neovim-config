@@ -176,20 +176,23 @@ end
 local path = vim.uv.cwd()
 local config_path = path .. "/.vscode/settings.json"
 local tailwindcss_settings = {}
-if vim.uv.fs_stat(config_path) then
-  local file = vim.fn.readfile(config_path)
-  local vscode_settings = vim.fn.json_decode(file)
-  tailwindcss_settings =
-    vim.tbl_deep_extend(
-    "force",
-    tailwindcss_settings,
-    {
-      tailwindCSS = {
-        rootFontSize = vscode_settings["tailwindCSS.rootFontSize"]
+function patch_tailwindcss_settings()
+  if vim.uv.fs_stat(config_path) then
+    local file = vim.fn.readfile(config_path)
+    local vscode_settings = vim.fn.json_decode(file)
+    tailwindcss_settings =
+      vim.tbl_deep_extend(
+      "force",
+      tailwindcss_settings,
+      {
+        tailwindCSS = {
+          rootFontSize = vscode_settings["tailwindCSS.rootFontSize"]
+        }
       }
-    }
-  )
+    )
+  end
 end
+pcall(patch_tailwindcss_settings)
 nvim_lsp.tailwindcss.setup {
   on_attach = on_attach,
   flags = {

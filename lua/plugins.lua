@@ -143,7 +143,7 @@ require("lazy").setup(
           border = {}
         }
         require("telescope").setup {
-          file_ignore_patterns = {"package-lock.json"},
+          file_ignore_patterns = {"package-lock.json", ".git/"},
           extensions = {
             ["ui-select"] = {
               require("telescope.themes").get_dropdown(dropdown_configs)
@@ -235,12 +235,12 @@ require("lazy").setup(
     --     require("plugins/copilot")
     --   end
     -- },
-    -- {
-    --   "supermaven-inc/supermaven-nvim",
-    --   config = function()
-    --     require("supermaven-nvim").setup({})
-    --   end
-    -- },
+    {
+      "supermaven-inc/supermaven-nvim",
+      config = function()
+        require("supermaven-nvim").setup({})
+      end
+    },
     {
       "ggandor/lightspeed.nvim",
       dependencies = {"tpope/vim-repeat"}

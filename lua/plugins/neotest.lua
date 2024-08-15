@@ -3,7 +3,10 @@ require("neotest").setup(
     adapters = {
       require("neotest-jest")(
         {
-          jestCommand = "npx jest"
+          jestCommand = "npx jest --bail --ci",
+          env = {
+            NODE_OPTIONS = "--no-deprecation"
+          }
         }
       ),
       require("neotest-zig")
