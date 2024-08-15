@@ -33,7 +33,8 @@ local extra_servers = {
   "eslint",
   "jsonls",
   "omnisharp",
-  "rust_analyzer"
+  "rust_analyzer",
+  "tailwindcss"
 }
 
 -- Ensure that required tools are installed
@@ -171,6 +172,54 @@ for _, lsp in ipairs(common_servers) do
     capabilities = capabilities
   }
 end
+
+local path = vim.uv.cwd()
+local config_path = path .. "/.vscode/settings.json"
+local tailwindcss_settings = {}
+function patch_tailwindcss_settings()
+  if vim.uv.fs_stat(config_path) then
+    local file = vim.fn.readfile(config_path)
+    local vscode_settings = vim.fn.json_decode(file)
+    tailwindcss_settings =
+      vim.tbl_deep_extend(
+      "force",
+      tailwindcss_settings,
+      {
+        tailwindCSS = {
+          rootFontSize = vscode_settings["tailwindCSS.rootFontSize"]
+        }
+      }
+    )
+  end
+end
+pcall(patch_tailwindcss_settings)
+nvim_lsp.tailwindcss.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150
+  },
+  capabilities = capabilities,
+  -- on_init = function(client)
+  --   local path = client.workspace_folders and client.workspace_folders[1] and client.workspace_folders[1].name
+  --   local config_path = path .. "/.vscode/settings.json"
+  --   if vim.uv.fs_stat(config_path) then
+  --     local file = vim.fn.readfile(config_path)
+  --     local vscode_settings = vim.fn.json_decode(file)
+  --     client.config.settings =
+  --       vim.tbl_deep_extend(
+  --       "force",
+  --       client.config.settings,
+  --       {
+  --         tailwindCSS = {
+  --           rootFontSize = vscode_settings["tailwindCSS.rootFontSize"]
+  --         }
+  --       }
+  --     )
+  --     client.notify(vim.lsp.protocol.Methods.workspace_didChangeConfiguration, {settings = client.config.settings})
+  --   end
+  -- end,
+  settings = tailwindcss_settings
+}
 
 nvim_lsp.omnisharp.setup {
   cmd = {"OmniSharp"},

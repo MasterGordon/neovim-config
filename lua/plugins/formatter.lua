@@ -95,3 +95,12 @@ vim.api.nvim_create_autocmd(
     group = formatGrp
   }
 )
+
+-- local function organize_imports()
+--   local params = {
+--     command = "typescript.organizeImports",
+--     arguments = {vim.api.nvim_buf_get_name(0)},
+--     title = ""
+--   }
+--   vim.lsp.buf.execute_command(params)
+-- end
