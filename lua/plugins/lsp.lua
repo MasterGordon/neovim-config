@@ -26,13 +26,13 @@ local common_servers = {
   "lua_ls",
   "html",
   "vimls",
-  "yamlls"
+  "yamlls",
+  "ocamllsp"
 }
 local extra_servers = {
   "vtsls",
   "eslint",
   "jsonls",
-  "omnisharp",
   "rust_analyzer",
   "tailwindcss"
 }
@@ -199,115 +199,107 @@ nvim_lsp.tailwindcss.setup {
     debounce_text_changes = 150
   },
   capabilities = capabilities,
-  -- on_init = function(client)
-  --   local path = client.workspace_folders and client.workspace_folders[1] and client.workspace_folders[1].name
-  --   local config_path = path .. "/.vscode/settings.json"
-  --   if vim.uv.fs_stat(config_path) then
-  --     local file = vim.fn.readfile(config_path)
-  --     local vscode_settings = vim.fn.json_decode(file)
-  --     client.config.settings =
-  --       vim.tbl_deep_extend(
-  --       "force",
-  --       client.config.settings,
-  --       {
-  --         tailwindCSS = {
-  --           rootFontSize = vscode_settings["tailwindCSS.rootFontSize"]
-  --         }
-  --       }
-  --     )
-  --     client.notify(vim.lsp.protocol.Methods.workspace_didChangeConfiguration, {settings = client.config.settings})
-  --   end
-  -- end,
   settings = tailwindcss_settings
 }
 
-nvim_lsp.omnisharp.setup {
-  cmd = {"OmniSharp"},
-  enable_editorconfig_support = true,
-  enable_roslyn_analyzers = true,
-  enable_import_completion = true,
-  on_attach = function(client, bufnr)
-    client.server_capabilities.semanticTokensProvider = {
-      full = vim.empty_dict(),
-      legend = {
-        tokenModifiers = {"static_symbol"},
-        tokenTypes = {
-          "comment",
-          "excluded_code",
-          "identifier",
-          "keyword",
-          "keyword_control",
-          "number",
-          "operator",
-          "operator_overloaded",
-          "preprocessor_keyword",
-          "string",
-          "whitespace",
-          "text",
-          "static_symbol",
-          "preprocessor_text",
-          "punctuation",
-          "string_verbatim",
-          "string_escape_character",
-          "class_name",
-          "delegate_name",
-          "enum_name",
-          "interface_name",
-          "module_name",
-          "struct_name",
-          "type_parameter_name",
-          "field_name",
-          "enum_member_name",
-          "constant_name",
-          "local_name",
-          "parameter_name",
-          "method_name",
-          "extension_method_name",
-          "property_name",
-          "event_name",
-          "namespace_name",
-          "label_name",
-          "xml_doc_comment_attribute_name",
-          "xml_doc_comment_attribute_quotes",
-          "xml_doc_comment_attribute_value",
-          "xml_doc_comment_cdata_section",
-          "xml_doc_comment_comment",
-          "xml_doc_comment_delimiter",
-          "xml_doc_comment_entity_reference",
-          "xml_doc_comment_name",
-          "xml_doc_comment_processing_instruction",
-          "xml_doc_comment_text",
-          "xml_literal_attribute_name",
-          "xml_literal_attribute_quotes",
-          "xml_literal_attribute_value",
-          "xml_literal_cdata_section",
-          "xml_literal_comment",
-          "xml_literal_delimiter",
-          "xml_literal_embedded_expression",
-          "xml_literal_entity_reference",
-          "xml_literal_name",
-          "xml_literal_processing_instruction",
-          "xml_literal_text",
-          "regex_comment",
-          "regex_character_class",
-          "regex_anchor",
-          "regex_quantifier",
-          "regex_grouping",
-          "regex_alternation",
-          "regex_text",
-          "regex_self_escaped_character",
-          "regex_other_escape"
-        }
-      },
-      range = true
-    }
-    on_attach(client, bufnr)
-  end,
-  flags = {
-    debounce_text_changes = 150
-  },
-  capabilities = capabilities
-}
+require("roslyn").setup(
+  {
+    config = {},
+    exe = {
+      "dotnet",
+      vim.fs.joinpath(vim.fn.stdpath("data"), "roslyn", "Microsoft.CodeAnalysis.LanguageServer.dll")
+    },
+    filewatching = true
+  }
+)
+
+-- nvim_lsp.omnisharp.setup {
+--   cmd = {"OmniSharp"},
+--   enable_editorconfig_support = true,
+--   enable_roslyn_analyzers = true,
+--   enable_import_completion = true,
+--   on_attach = function(client, bufnr)
+--     client.server_capabilities.semanticTokensProvider = {
+--       full = vim.empty_dict(),
+--       legend = {
+--         tokenModifiers = {"static_symbol"},
+--         tokenTypes = {
+--           "comment",
+--           "excluded_code",
+--           "identifier",
+--           "keyword",
+--           "keyword_control",
+--           "number",
+--           "operator",
+--           "operator_overloaded",
+--           "preprocessor_keyword",
+--           "string",
+--           "whitespace",
+--           "text",
+--           "static_symbol",
+--           "preprocessor_text",
+--           "punctuation",
+--           "string_verbatim",
+--           "string_escape_character",
+--           "class_name",
+--           "delegate_name",
+--           "enum_name",
+--           "interface_name",
+--           "module_name",
+--           "struct_name",
+--           "type_parameter_name",
+--           "field_name",
+--           "enum_member_name",
+--           "constant_name",
+--           "local_name",
+--           "parameter_name",
+--           "method_name",
+--           "extension_method_name",
+--           "property_name",
+--           "event_name",
+--           "namespace_name",
+--           "label_name",
+--           "xml_doc_comment_attribute_name",
+--           "xml_doc_comment_attribute_quotes",
+--           "xml_doc_comment_attribute_value",
+--           "xml_doc_comment_cdata_section",
+--           "xml_doc_comment_comment",
+--           "xml_doc_comment_delimiter",
+--           "xml_doc_comment_entity_reference",
+--           "xml_doc_comment_name",
+--           "xml_doc_comment_processing_instruction",
+--           "xml_doc_comment_text",
+--           "xml_literal_attribute_name",
+--           "xml_literal_attribute_quotes",
+--           "xml_literal_attribute_value",
+--           "xml_literal_cdata_section",
+--           "xml_literal_comment",
+--           "xml_literal_delimiter",
+--           "xml_literal_embedded_expression",
+--           "xml_literal_entity_reference",
+--           "xml_literal_name",
+--           "xml_literal_processing_instruction",
+--           "xml_literal_text",
+--           "regex_comment",
+--           "regex_character_class",
+--           "regex_anchor",
+--           "regex_quantifier",
+--           "regex_grouping",
+--           "regex_alternation",
+--           "regex_text",
+--           "regex_self_escaped_character",
+--           "regex_other_escape"
+--         }
+--       },
+--       range = true
+--     }
+--     on_attach(client, bufnr)
+--   end,
+--   flags = {
+--     debounce_text_changes = 150
+--   },
+--   capabilities = capabilities
+-- }
 
 nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,

@@ -80,7 +80,8 @@ require("lazy").setup(
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
-        "jay-babu/mason-null-ls.nvim"
+        "jay-babu/mason-null-ls.nvim",
+        "seblj/roslyn.nvim"
       }
     },
     {

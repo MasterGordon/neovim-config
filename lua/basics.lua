@@ -28,3 +28,16 @@ set.signcolumn = "auto:2"
 
 -- set leader
 vim.g.mapleader = " "
+
+vim.filetype.add(
+  {
+    extension = {
+      zsh = "sh",
+      sh = "sh"
+    },
+    filename = {
+      [".zshrc"] = "sh",
+      [".zshenv"] = "sh"
+    }
+  }
+)

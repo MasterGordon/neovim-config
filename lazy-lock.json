@@ -54,6 +54,7 @@
   "popui.nvim": { "branch": "master", "commit": "4d903e46fdb5eef25fa79ef1b598f5340a2674b0" },
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
   "presence.nvim": { "branch": "main", "commit": "87c857a56b7703f976d3a5ef15967d80508df6e6" },
+  "roslyn.nvim": { "branch": "main", "commit": "e284f0e6c34b01cd1db9fdb71c75ae85d732a43b" },
   "statuscol.nvim": { "branch": "main", "commit": "93d8bcda516fc86e11c03f9ef577bae9a72fba0e" },
   "supermaven-nvim": { "branch": "main", "commit": "d71257f431e190d9236d7f30da4c2d659389e91f" },
   "tailwind-tools.nvim": { "branch": "master", "commit": "48523580c6af449a7a57610ce5596c716cf4363a" },
