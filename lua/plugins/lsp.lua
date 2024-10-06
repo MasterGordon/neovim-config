@@ -22,7 +22,6 @@ local common_servers = {
   "zls",
   -- "gleam",
   "intelephense",
-  "vtsls",
   "lua_ls",
   "html",
   "vimls",
@@ -96,6 +95,7 @@ end
 -- Mappings.
 local opts = {noremap = true, silent = true}
 vim.api.nvim_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+vim.api.nvim_set_keymap("n", "gs", "<Cmd>VtsExec goto_source_definition<CR>", opts)
 vim.api.nvim_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -136,6 +136,18 @@ require "lspconfig".jsonls.setup {
 }
 
 require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+
+require("lspconfig").vtsls.setup(
+  {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+      vtsls = {
+        autoUseWorkspaceTsdk = true
+      }
+    }
+  }
+)
 
 require "lspconfig".eslint.setup {
   on_attach = on_attach,
