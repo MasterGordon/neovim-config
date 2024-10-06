@@ -88,6 +88,9 @@ require("lazy").setup(
       "luckasRanarison/tailwind-tools.nvim",
       dependencies = {"nvim-treesitter/nvim-treesitter"},
       opts = {
+        server = {
+          override = false
+        },
         document_color = {
           enabled = true, -- can be toggled by commands
           kind = "inline", -- "inline" | "foreground" | "background"

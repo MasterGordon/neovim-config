@@ -145,7 +145,13 @@ require "lspconfig".eslint.setup {
     ".eslintrc.cjs",
     ".eslintrc.yaml",
     ".eslintrc.yml",
-    ".eslintrc.json"
+    ".eslintrc.json",
+    "eslint.config.js",
+    "eslint.config.cjs",
+    "eslint.config.yaml",
+    "eslint.config.yml",
+    "eslint.config.json",
+    "eslint.config.ts"
   ),
   handlers = {
     ["eslint/openDoc"] = function(_, result)
@@ -175,31 +181,53 @@ end
 
 local path = vim.uv.cwd()
 local config_path = path .. "/.vscode/settings.json"
-local tailwindcss_settings = {}
-function patch_tailwindcss_settings()
-  if vim.uv.fs_stat(config_path) then
-    local file = vim.fn.readfile(config_path)
-    local vscode_settings = vim.fn.json_decode(file)
-    tailwindcss_settings =
-      vim.tbl_deep_extend(
-      "force",
-      tailwindcss_settings,
-      {
-        tailwindCSS = {
-          rootFontSize = vscode_settings["tailwindCSS.rootFontSize"]
-        }
+local tailwindcss_settings = {
+  tailwindCSS = {
+    experimental = {
+      classRegex = {
+        {"cva\\(([^)]*)\\)", '["\'`]([^"\'`]*).*?["\'`]'},
+        {"cx\\(([^)]*)\\)", '(?:\'|"|`)([^\']*)(?:\'|"|`)'},
+        {"cn\\(([^)]*)\\)", '["\'`]([^"\'`]*).*?["\'`]'},
+        {"([a-zA-Z0-9\\-:]+)"}
       }
-    )
-  end
-end
-pcall(patch_tailwindcss_settings)
+    }
+  }
+}
+-- local function patch_tailwindcss_settings()
+--   if vim.uv.fs_stat(config_path) then
+--     local file = vim.fn.readfile(config_path)
+--     local vscode_settings = vim.fn.json_decode(file)
+--     tailwindcss_settings =
+--       vim.tbl_deep_extend(
+--       "force",
+--       tailwindcss_settings,
+--       {
+--         tailwindCSS = {
+--           rootFontSize = vscode_settings["tailwindCSS.rootFontSize"]
+--         }
+--       }
+--     )
+--   end
+-- end
+-- pcall(patch_tailwindcss_settings)
 nvim_lsp.tailwindcss.setup {
   on_attach = on_attach,
   flags = {
     debounce_text_changes = 150
   },
   capabilities = capabilities,
-  settings = tailwindcss_settings
+  -- settings = tailwindcss_settings
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          {"cva\\(([^)]*)\\)", '["\'`]([^"\'`]*).*?["\'`]'},
+          {"cx\\(([^)]*)\\)", '(?:\'|"|`)([^\']*)(?:\'|"|`)'},
+          {"cn\\(([^)]*)\\)", '(?:\'|"|`)([^\']*)(?:\'|"|`)'}
+        }
+      }
+    }
+  }
 }
 
 require("roslyn").setup(
