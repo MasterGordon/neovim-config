@@ -80,13 +80,17 @@ require("lazy").setup(
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
-        "jay-babu/mason-null-ls.nvim"
+        "jay-babu/mason-null-ls.nvim",
+        "seblj/roslyn.nvim"
       }
     },
     {
       "luckasRanarison/tailwind-tools.nvim",
       dependencies = {"nvim-treesitter/nvim-treesitter"},
       opts = {
+        server = {
+          override = false
+        },
         document_color = {
           enabled = true, -- can be toggled by commands
           kind = "inline", -- "inline" | "foreground" | "background"

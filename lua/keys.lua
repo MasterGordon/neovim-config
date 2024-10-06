@@ -44,6 +44,7 @@ vim.api.nvim_set_keymap("", "<A-Up>", "<C-w><Up>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Down>", "<C-w><Down>", {silent = true})
 vim.api.nvim_set_keymap("", "<A-Right>", "<C-w><Right>", {silent = true})
 vim.api.nvim_set_keymap("", "<C-p>", "<C-i>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>i", "<cmd>!ocamlc -i -c %>%i<CR>", {silent = true})
 
 local insert_random_uuid = function()
   local id, _ = vim.fn.system("uuidgen"):gsub("\n", ""):gsub("-", ""):upper()

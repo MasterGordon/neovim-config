@@ -63,16 +63,35 @@ require("formatter").setup(
             stdin = true
           }
         end
+      },
+      xml = {
+        function()
+          return {
+            exe = "xmllint",
+            args = {"--format", "-"},
+            stdin = true
+          }
+        end
+      },
+      cs = {
+        function()
+          return {
+            exe = "dotnet-csharpier",
+            args = {"--write-stdout"},
+            stdin = true
+          }
+        end
+      },
+      -- ocaml
+      ocaml = {
+        function()
+          return {
+            exe = "ocamlformat",
+            args = {"--name", vim.api.nvim_buf_get_name(0), "-"},
+            stdin = true
+          }
+        end
       }
-      -- cs = {
-      --   function()
-      --     return {
-      --       exe = "dotnet",
-      --       args = {"csharpier", "--write-stdout"},
-      --       stdin = true
-      --     }
-      --   end
-      -- }
     }
   }
 )
@@ -81,7 +100,7 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.jsonc,*.swift FormatWrite
+  autocmd BufWritePost *.cs,*.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.jsonc,*.swift,*.xml,*.sln,*.csproj,*.ml FormatWrite
 augroup END
 ]],
   true
@@ -90,7 +109,7 @@ local formatGrp = vim.api.nvim_create_augroup("Format", {clear = true})
 vim.api.nvim_create_autocmd(
   "BufWritePre",
   {
-    pattern = "*.cs,*.php",
+    pattern = "*.php",
     command = "lua vim.lsp.buf.format { async = false }",
     group = formatGrp
   }
