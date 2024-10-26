@@ -159,6 +159,7 @@ require "lspconfig".eslint.setup {
     ".eslintrc.yml",
     ".eslintrc.json",
     "eslint.config.js",
+    "eslint.config.mjs",
     "eslint.config.cjs",
     "eslint.config.yaml",
     "eslint.config.yml",
