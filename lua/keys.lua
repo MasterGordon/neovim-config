@@ -57,3 +57,22 @@ end
 
 vim.keymap.set("n", "<leader>u", insert_random_uuid, {noremap = true, silent = true})
 vim.keymap.set("n", "<leader>U", insert_random_uuid_dashed, {noremap = true, silent = true})
+
+local print_namespace = function()
+  local cmd = 'bash -c "xq *.csproj -q RootNamespace"'
+  -- insert namespace NAMESPACE.PATH.TO.FILE; at the start of the file
+  local output = vim.fn.system(cmd):gsub("\n", "")
+  local relative_path = vim.fn.expand("%:h")
+  local short_path = relative_path:gsub("/", ".")
+  local namespace = output .. "." .. short_path
+  if relative_path == "." then
+    namespace = output
+  end
+  vim.cmd [[normal! gg]]
+  vim.cmd [[normal! }]]
+  vim.cmd [[normal! o]]
+  vim.api.nvim_put({"namespace " .. namespace .. ";"}, "c", true, true)
+  vim.cmd [[normal! o]]
+end
+
+vim.keymap.set("n", "<leader>n", print_namespace, {silent = true})
