@@ -147,9 +147,16 @@ require("lazy").setup(
       }
     },
     {
-      "norcalli/nvim-colorizer.lua",
+      "uga-rosa/ccc.nvim",
       config = function()
-        require "colorizer".setup()
+        require("ccc").setup(
+          {
+            highlighter = {
+              auto_enable = true,
+              lsp = true
+            }
+          }
+        )
       end
     },
     {
@@ -209,22 +216,25 @@ require("lazy").setup(
           preset = "enter",
           ["<C-f>"] = {"show", "show_documentation", "hide_documentation"}
         },
-        highlight = {
+        appearance = {
           -- sets the fallback highlight groups to nvim-cmp's highlight groups
           -- useful for when your theme doesn't support blink.cmp
           -- will be removed in a future release, assuming themes add support
-          use_nvim_cmp_as_default = true
+          use_nvim_cmp_as_default = true,
+          nerd_font_variant = "mono"
         },
         -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- adjusts spacing to ensure icons are aligned
-        nerd_font_variant = "mono",
-        windows = {
-          autocomplete = {
+        completion = {
+          menu = {
             max_height = 20
           },
           documentation = {
             auto_show = true
           }
+        },
+        sources = {
+          cmdline = {}
         }
 
         -- experimental auto-brackets support

@@ -179,6 +179,9 @@ require "lspconfig".eslint.setup {
   capabilities = capabilities
 }
 
+require "lspconfig".gdshader_lsp.setup {}
+require "lspconfig".gdscript.setup {}
+
 --[[ require "lspconfig".java_language_server.setup {
   on_attach = on_attach,
   cmd = {"java-language-server"}
