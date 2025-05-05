@@ -91,6 +91,18 @@ require("formatter").setup(
             stdin = true
           }
         end
+      },
+      php = {
+        function()
+          return {
+            exe = "vendor/bin/php-cs-fixer",
+            args = {
+              "fix"
+            },
+            stdin = false,
+            ignore_exitcode = true
+          }
+        end
       }
     }
   }
@@ -100,20 +112,20 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.cs,*.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.jsonc,*.swift,*.xml,*.sln,*.csproj,*.ml FormatWrite
+  autocmd BufWritePost *.cs,*.h,*.cpp,*.rs,*.lua,*.tsx,*.ts,*.js,*.jsx,*.json,*.jsonc,*.swift,*.xml,*.sln,*.csproj,*.ml,*.php FormatWrite
 augroup END
 ]],
   true
 )
-local formatGrp = vim.api.nvim_create_augroup("Format", {clear = true})
-vim.api.nvim_create_autocmd(
-  "BufWritePre",
-  {
-    pattern = "*.php",
-    command = "lua vim.lsp.buf.format { async = false }",
-    group = formatGrp
-  }
-)
+-- local formatGrp = vim.api.nvim_create_augroup("Format", {clear = true})
+-- vim.api.nvim_create_autocmd(
+--   "BufWritePre",
+--   {
+--     pattern = "*.php",
+--     command = "lua vim.lsp.buf.format { async = false }",
+--     group = formatGrp
+--   }
+-- )
 
 -- local function organize_imports()
 --   local params = {

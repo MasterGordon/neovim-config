@@ -3,11 +3,11 @@ local selectX = function(n)
     local a = require("telescope.actions")
     local s = require("telescope.actions.state")
     local picker_name = s.get_current_picker(bufnr).prompt_title
-    if not quick_prompts[picker_name] then
-      -- Disable quick prompts to not press by accident
-      -- TODO: Still type the number
-      return
-    end
+    -- if not quick_prompts[picker_name] then
+    --   -- Disable quick prompts to not press by accident
+    --   -- TODO: Still type the number
+    --   return
+    -- end
     a.move_to_top(bufnr)
     for _ = 1, n - 1 do
       a.move_selection_next(bufnr)
