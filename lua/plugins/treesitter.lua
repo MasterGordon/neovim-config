@@ -1,36 +1,56 @@
-local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-parser_configs.http = {
-  install_info = {
-    url = "https://github.com/NTBBloodbath/tree-sitter-http",
-    files = {"src/parser.c"},
-    branch = "main"
-  }
-}
-local npairs = require("nvim-autopairs")
-npairs.setup(
-  {
-    check_ts = true,
-    enable_check_bracket_line = true
-  }
-)
+return {
+  'nvim-treesitter/nvim-treesitter',
+  build = ':TSUpdate',
+  config = function()
+    local configs = require('nvim-treesitter.configs')
 
-require("nvim-ts-autotag").setup({})
-
-local tscc = require("ts_context_commentstring.config")
-tscc.update(
-  {
-    enable_autocmd = false
-  }
-)
-
-require "nvim-treesitter.configs".setup {
-  highlight = {
-    enable = true
-  },
-  indent = {
-    enable = true
-  },
-  autopairs = {
-    enable = true
-  }
+    configs.setup({
+      ensure_installed = {
+        'bash',
+        'c_sharp',
+        'caddy',
+        'css',
+        'csv',
+        'desktop',
+        'diff',
+        'dockerfile',
+        'editorconfig',
+        'gdscript',
+        'gdshader',
+        'git_config',
+        'gitattributes',
+        'gitcommit',
+        'gitignore',
+        'html',
+        'ini',
+        'javascript',
+        'jsdoc',
+        'json',
+        'json5',
+        'jsonc',
+        'lua',
+        'luadoc',
+        'luap',
+        'markdown',
+        'php',
+        'printf',
+        'prisma',
+        'properties',
+        'python',
+        'robots',
+        'scss',
+        'sql',
+        'ssh_config',
+        'toml',
+        'tsx',
+        'typescript',
+        'xml',
+        'yaml',
+        'zig',
+      },
+      sync_install = false,
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
+  end,
 }

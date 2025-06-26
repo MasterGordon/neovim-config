@@ -1,56 +1,62 @@
-local selectX = function(n)
-  return function(bufnr)
-    local a = require("telescope.actions")
-    local s = require("telescope.actions.state")
-    local picker_name = s.get_current_picker(bufnr).prompt_title
-    -- if not quick_prompts[picker_name] then
-    --   -- Disable quick prompts to not press by accident
-    --   -- TODO: Still type the number
-    --   return
-    -- end
-    a.move_to_top(bufnr)
-    for _ = 1, n - 1 do
-      a.move_selection_next(bufnr)
-    end
-    a.select_default(bufnr)
-  end
-end
+return { -- Fuzzy Finder (files, lsp, etc)
+  'nvim-telescope/telescope.nvim',
+  event = 'VimEnter',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    { -- If encountering errors, see telescope-fzf-native README for installation instructions
+      'nvim-telescope/telescope-fzf-native.nvim',
 
-local dropdown_configs = {
-  layout_config = {
-    prompt_position = "top",
-    vertical = {
-      width = 80,
-      height = 12
-    }
-  },
-  border = {}
-}
+      -- `build` is used to run some command when the plugin is installed/updated.
+      -- This is only run then, not every time Neovim starts up.
+      build = 'make',
 
-require("telescope").setup {
-  file_ignore_patterns = {"package-lock.json"},
-  extensions = {
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown(dropdown_configs)
-    }
+      -- `cond` is a condition used to determine whether this plugin should be
+      -- installed and loaded.
+      cond = function()
+        return vim.fn.executable('make') == 1
+      end,
+    },
+    { 'nvim-telescope/telescope-ui-select.nvim' },
+
+    -- Useful for getting pretty icons, but requires a Nerd Font.
+    { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
-  defaults = {
-    mappings = {
-      i = {
-        ["<Esc>"] = "close",
-        ["1"] = {selectX(1), type = "action"},
-        ["2"] = {selectX(2), type = "action"},
-        ["3"] = {selectX(3), type = "action"},
-        ["4"] = {selectX(4), type = "action"},
-        ["5"] = {selectX(5), type = "action"},
-        ["6"] = {selectX(6), type = "action"},
-        ["7"] = {selectX(7), type = "action"},
-        ["8"] = {selectX(8), type = "action"},
-        ["9"] = {selectX(9), type = "action"},
-        ["0"] = {selectX(10), type = "action"}
+  config = function()
+    local actions = require('telescope.actions')
+    require('telescope').setup({
+      extensions = {
+        ['ui-select'] = {
+          require('telescope.themes').get_dropdown(),
+        },
       },
-      n = {}
-    }
-  }
+      defaults = {
+        mappings = {
+          i = {
+            ['<C-s>'] = actions.select_horizontal,
+          },
+          n = {
+            ['<C-s>'] = actions.select_horizontal,
+          },
+        },
+      },
+    })
+
+    -- Enable Telescope extensions if they are installed
+    pcall(require('telescope').load_extension, 'fzf')
+    pcall(require('telescope').load_extension, 'ui-select')
+
+    -- See `:help telescope.builtin`
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>fh', builtin.help_tags)
+    vim.keymap.set('n', '<leader>fk', builtin.keymaps)
+    vim.keymap.set('n', '<leader>ff', builtin.find_files)
+    vim.keymap.set('n', '<leader>fs', builtin.builtin)
+    vim.keymap.set('n', '<leader>fw', builtin.grep_string)
+    vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+    vim.keymap.set('n', '<leader>fd', builtin.diagnostics)
+    vim.keymap.set('n', '<leader>fr', builtin.resume)
+    vim.keymap.set('n', '<leader>f.', builtin.oldfiles)
+    vim.keymap.set('n', '<leader>fb', builtin.buffers)
+    vim.keymap.set('n', '<leader>ft', '<CMD>TodoTelescope<CR>')
+  end,
 }
-require("telescope").load_extension("ui-select")
