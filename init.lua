@@ -89,7 +89,7 @@ require('lazy').setup({
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup({
-        transparent = true,
+        transparent = (vim.fn.has_key(vim.fn.environ(), 'WSL_DISTRO_NAME') == 0),
         terminal_colors = false,
         ---@param highlights tokyonight.Highlights
         ---@param colors ColorScheme
