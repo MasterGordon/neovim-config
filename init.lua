@@ -145,4 +145,15 @@ require('lazy').setup({
     dependencies = 'nvim-lua/plenary.nvim',
     opts = {},
   },
+  {
+    'kawre/leetcode.nvim',
+    dependencies = {
+      -- include a picker of your choice, see picker section for more details
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+    },
+    opts = {
+      lang = 'typescript',
+    },
+  },
 })
