@@ -34,6 +34,8 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.confirm = true
+vim.o.swapfile = false
+vim.o.backup = false
 
 -- Convert Tab to spaces
 vim.cmd([[filetype plugin indent on]])
@@ -75,6 +77,8 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  -- ... existing plugins ...
+  require('plugins/neotest'),  -- Add this line
   require('plugins/web-devicons'),
   require('plugins/neo-tree'),
   require('plugins/conform'),
@@ -156,4 +160,21 @@ require('lazy').setup({
       lang = 'typescript',
     },
   },
+  {
+    'folke/snacks.nvim',
+    ---@type snacks.Config
+    opts = {
+      input = {},
+      styles = {
+        input = {
+          relative = 'cursor',
+          row = -3,
+          col = 0,
+          position = 'float',
+        },
+      },
+    },
+  },
 })
+
+local a = ''

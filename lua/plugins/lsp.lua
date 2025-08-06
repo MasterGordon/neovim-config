@@ -23,7 +23,7 @@ return {
           vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
-        -- map('<leader>a', vim.lsp.buf.code_action, 'Code Action', { 'n', 'x', 'v' })
+        map('<leader>a', vim.lsp.buf.code_action, 'Code Action')
 
         map('gr', require('telescope.builtin').lsp_references, 'Goto References')
 
@@ -33,6 +33,7 @@ return {
 
         map('<leader>fs', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
 
+        map('<f2>', vim.lsp.buf.rename, 'Rename')
         map('<leader>d', vim.diagnostic.open_float, 'Show Diagnostics')
         map('<leader>D', function()
           vim.diagnostic.jump({ count = 1, float = true })
