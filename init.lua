@@ -78,7 +78,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   -- ... existing plugins ...
-  require('plugins/neotest'),  -- Add this line
+  require('plugins/neotest'), -- Add this line
   require('plugins/web-devicons'),
   require('plugins/neo-tree'),
   require('plugins/conform'),
