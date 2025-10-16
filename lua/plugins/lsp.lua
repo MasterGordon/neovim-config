@@ -1,7 +1,15 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    { 'mason-org/mason.nvim', opts = {} },
+    {
+      'mason-org/mason.nvim',
+      opts = {
+        registries = {
+          'github:mason-org/mason-registry',
+          'github:Crashdummyy/mason-registry',
+        },
+      },
+    },
     'mason-org/mason-lspconfig.nvim',
     { 'j-hui/fidget.nvim', opts = {
       notification = {
@@ -136,6 +144,7 @@ return {
       },
       gopls = {},
       rust_analyzer = {},
+      roslyn = {},
     }
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
