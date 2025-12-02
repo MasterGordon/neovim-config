@@ -1,6 +1,9 @@
 return {
   'saghen/blink.cmp',
-  dependencies = { 'rafamadriz/friendly-snippets' },
+  dependencies = {
+    'rafamadriz/friendly-snippets',
+    'L3MON4D3/LuaSnip',
+  },
   version = '1.*',
   build = 'cargo build --release',
 
@@ -21,6 +24,10 @@ return {
       menu = {
         max_height = 24,
       },
+    },
+
+    snippets = {
+      preset = 'luasnip',
     },
 
     -- Default list of enabled providers defined so that you can extend it

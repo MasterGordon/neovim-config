@@ -185,4 +185,5 @@ require('lazy').setup({
   },
 })
 
-local a = ''
+-- Load custom snippets after plugins are loaded
+require('snippets')

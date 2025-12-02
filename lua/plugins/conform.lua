@@ -29,7 +29,7 @@ return {
       json = { 'prettierd', 'prettier', stop_after_first = true },
       jsonc = { 'prettierd', 'prettier', stop_after_first = true },
       markdown = { 'prettierd', 'prettier', stop_after_first = true },
-      cs = { 'astyle' },
+      cs = { 'csharpierd' },
       php = { 'php_cs_fixer' },
       go = { 'gofmt' },
     },
@@ -38,7 +38,7 @@ return {
       lsp_format = 'fallback',
     },
     -- Set up format-on-save
-    format_on_save = { timeout_ms = 500 },
+    format_on_save = { timeout_ms = 3000 },
     -- Customize formatters
     formatters = {
       shfmt = {
@@ -46,6 +46,11 @@ return {
       },
       astyle = {
         prepend_args = { '--style=java', '--max-code-length=80', '--squeeze-ws' },
+      },
+      csharpierd = {
+        command = 'csharpierd',
+        args = { '$RELATIVE_FILEPATH' },
+        stdin = true,
       },
     },
   },
