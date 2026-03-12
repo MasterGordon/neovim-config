@@ -42,6 +42,7 @@ vim.cmd([[filetype plugin indent on]])
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
+vim.o.winborder = 'rounded'
 
 vim.filetype.add({
   extension = {
@@ -109,7 +110,6 @@ require('lazy').setup({
   require('plugins/pairs'),
   require('plugins/ccc'),
   require('plugins/heirline'),
-  require('plugins/lspsaga'),
   { 'folke/ts-comments.nvim', opts = {}, event = 'VeryLazy' },
   {
     'folke/todo-comments.nvim',
@@ -136,14 +136,14 @@ require('lazy').setup({
     opts = {},
   },
   'jghauser/mkdir.nvim',
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      if not (vim.fn.has_key(vim.fn.environ(), 'LOAD_SUPERMAVEN') == 0) then
-        require('supermaven-nvim').setup({})
-      end
-    end,
-  },
+  -- {
+  --   'supermaven-inc/supermaven-nvim',
+  --   config = function()
+  --     if not (vim.fn.has_key(vim.fn.environ(), 'LOAD_SUPERMAVEN') == 0) then
+  --       require('supermaven-nvim').setup({})
+  --     end
+  --   end,
+  -- },
   {
     'folke/todo-comments.nvim',
     dependencies = 'nvim-lua/plenary.nvim',

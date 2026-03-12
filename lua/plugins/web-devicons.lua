@@ -52,6 +52,11 @@ return {
         color = '#FFFFFF',
         name = 'Jar',
       },
+      ['fsproj'] = {
+        icon = '󰪮',
+        color = '#66b2b2',
+        name = 'FsProj',
+      },
     })
   end,
 }

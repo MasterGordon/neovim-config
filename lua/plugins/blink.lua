@@ -20,9 +20,10 @@ return {
     },
 
     completion = {
-      documentation = { auto_show = true },
+      documentation = { auto_show = true, window = { border = 'none' } },
       menu = {
         max_height = 24,
+        border = 'none',
       },
     },
 

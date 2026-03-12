@@ -52,13 +52,69 @@ local function get_classname()
   return vim.fn.expand('%:t:r')
 end
 
--- C# class snippet
+-- C# snippets
 ls.add_snippets('cs', {
-  s('csc', {
+  -- C# class snippet
+  s('class', {
     t('namespace '),
-    f(function() return get_namespace() end),
+    f(function()
+      return get_namespace()
+    end),
     t({ ';', '', 'public class ' }),
-    f(function() return get_classname() end),
+    f(function()
+      return get_classname()
+    end),
+    t({ '', '{', '\t' }),
+    i(0),
+    t({ '', '}' }),
+  }),
+  -- C# property snippet
+  s('prop', {
+    t('public '),
+    i(1, 'string'),
+    t(' '),
+    i(2, 'Name'),
+    t(' { get; set; }'),
+    i(0),
+  }),
+  -- C# constructor snippet
+  s('ctor', {
+    t('public '),
+    f(function()
+      return get_classname()
+    end),
+    t('('),
+    i(1),
+    t({ ')', '{', '\t' }),
+    i(0),
+    t({ '', '}' }),
+  }),
+  -- C# enum snippet
+  s('enum', {
+    t('namespace '),
+    f(function()
+      return get_namespace()
+    end),
+    t({ ';', '', 'public enum ' }),
+    f(function()
+      return get_classname()
+    end),
+    t({ '', '{', '\t' }),
+    i(1, 'Value1'),
+    t({ ',', '\t' }),
+    i(0),
+    t({ '', '}' }),
+  }),
+  -- C# interface snippet
+  s('interface', {
+    t('namespace '),
+    f(function()
+      return get_namespace()
+    end),
+    t({ ';', '', 'public interface I' }),
+    f(function()
+      return get_classname()
+    end),
     t({ '', '{', '\t' }),
     i(0),
     t({ '', '}' }),
