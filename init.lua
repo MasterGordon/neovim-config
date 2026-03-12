@@ -183,6 +183,13 @@ require('lazy').setup({
       -- your configuration comes here; leave empty for default settings
     },
   },
+  {
+    'FabijanZulj/blame.nvim',
+    lazy = false,
+    config = function()
+      require('blame').setup({})
+    end,
+  },
 })
 
 -- Load custom snippets after plugins are loaded
