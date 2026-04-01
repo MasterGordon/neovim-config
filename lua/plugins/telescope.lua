@@ -49,7 +49,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>fh', builtin.help_tags)
     vim.keymap.set('n', '<leader>fk', builtin.keymaps)
-    vim.keymap.set('n', '<leader>ff', builtin.find_files)
+    -- vim.keymap.set('n', '<leader>ff', builtin.find_files)
     vim.keymap.set('n', '<leader>fs', builtin.builtin)
     vim.keymap.set('n', '<leader>fw', builtin.grep_string)
     vim.keymap.set('n', '<leader>fg', builtin.live_grep)
@@ -58,5 +58,36 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>f.', builtin.oldfiles)
     vim.keymap.set('n', '<leader>fb', builtin.buffers)
     vim.keymap.set('n', '<leader>ft', '<CMD>TodoTelescope<CR>')
+
+    -- keybind to grep after find
+    local actions = require('telescope.actions')
+    local action_state = require('telescope.actions.state')
+    local builtin = require('telescope.builtin')
+
+    vim.keymap.set('n', '<leader>ff', function()
+      builtin.find_files({
+        attach_mappings = function(_, map)
+          map('i', '<C-g>', function(prompt_bufnr)
+            local picker = action_state.get_current_picker(prompt_bufnr)
+            local dirs = {}
+
+            -- collect all selected/filtered results
+            for _, entry in ipairs(picker:get_multi_selection()) do
+              table.insert(dirs, entry.path)
+            end
+
+            -- fallback to current entry if nothing multi-selected
+            if #dirs == 0 then
+              local entry = action_state.get_selected_entry()
+              table.insert(dirs, vim.fn.fnamemodify(entry.path, ':h'))
+            end
+
+            actions.close(prompt_bufnr)
+            builtin.live_grep({ search_dirs = dirs })
+          end)
+          return true
+        end,
+      })
+    end)
   end,
 }
