@@ -183,6 +183,7 @@ require('lazy').setup({
       -- your configuration comes here; leave empty for default settings
     },
   },
+  require('plugins/markview'),
 })
 
 -- Load custom snippets after plugins are loaded

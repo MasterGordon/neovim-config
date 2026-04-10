@@ -47,6 +47,7 @@ return {
         'xml',
         'yaml',
         'zig',
+        'qmljs',
       },
       sync_install = false,
       highlight = { enable = true },
