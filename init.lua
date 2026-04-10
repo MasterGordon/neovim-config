@@ -184,6 +184,13 @@ require('lazy').setup({
     },
   },
   require('plugins/markview'),
+  {
+    'FabijanZulj/blame.nvim',
+    lazy = false,
+    config = function()
+      require('blame').setup({})
+    end,
+  },
 })
 
 -- Load custom snippets after plugins are loaded
