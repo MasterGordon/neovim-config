@@ -83,7 +83,8 @@ require('lazy').setup({
   require('plugins/web-devicons'),
   require('plugins/neo-tree'),
   require('plugins/conform'),
-  require('plugins/treesitter'),
+  -- require('plugins/treesitter'),
+  require('plugins/ts'),
   require('plugins/lsp'),
   require('plugins/telescope'),
   {

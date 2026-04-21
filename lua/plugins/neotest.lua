@@ -4,7 +4,7 @@ return {
     'nvim-neotest/nvim-nio',
     'nvim-lua/plenary.nvim',
     'antoinemadec/FixCursorHold.nvim',
-    'nvim-treesitter/nvim-treesitter',
+    -- 'nvim-treesitter/nvim-treesitter',
     'haydenmeade/neotest-jest',
     'arthur944/neotest-bun',
   },
@@ -52,4 +52,3 @@ return {
     end, { desc = 'Display test output' })
   end,
 }
-
