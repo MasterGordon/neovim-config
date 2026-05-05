@@ -98,8 +98,8 @@ require('lazy').setup({
         transparent = (vim.fn.has_key(vim.fn.environ(), 'WSL_DISTRO_NAME') == 0),
         terminal_colors = false,
         ---@param highlights tokyonight.Highlights
-        ---@param colors ColorScheme
-        on_highlights = function(highlights, colors)
+        ---@param _ ColorScheme
+        on_highlights = function(highlights, _)
           highlights.TabLineSel = { bg = '#252d37' }
         end,
       })

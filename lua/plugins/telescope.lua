@@ -30,6 +30,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
         },
       },
       defaults = {
+        preview = {
+          treesitter = true,
+        },
         mappings = {
           i = {
             ['<C-s>'] = actions.select_horizontal,
