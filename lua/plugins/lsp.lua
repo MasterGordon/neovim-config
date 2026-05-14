@@ -23,6 +23,39 @@ return {
     'b0o/schemastore.nvim',
   },
   config = function()
+    -- :LspInfo — list clients attached to the current buffer
+    vim.api.nvim_create_user_command('LspInfo', function()
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
+      if vim.tbl_isempty(clients) then
+        vim.notify('No LSP clients attached to this buffer', vim.log.levels.WARN)
+        return
+      end
+      for _, c in ipairs(clients) do
+        vim.notify(
+          string.format('• %s (id=%d)\n  root: %s\n  filetypes: %s', c.name, c.id, c.config.root_dir or 'n/a', table.concat(c.config.filetypes or {}, ', ')),
+          vim.log.levels.INFO
+        )
+      end
+    end, { desc = 'Show LSP clients for current buffer' })
+
+    -- :LspRestart — stop and re-attach clients on the current buffer
+    vim.api.nvim_create_user_command('LspRestart', function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local clients = vim.lsp.get_clients({ bufnr = bufnr })
+      if vim.tbl_isempty(clients) then
+        vim.notify('No LSP clients to restart', vim.log.levels.WARN)
+        return
+      end
+      for _, c in ipairs(clients) do
+        local cfg = c.config
+        c:stop(true) -- force-stop
+        vim.defer_fn(function()
+          vim.lsp.start(cfg, { bufnr = bufnr })
+        end, 300)
+      end
+      vim.notify('LSP clients restarted', vim.log.levels.INFO)
+    end, { desc = 'Restart LSP clients for current buffer' })
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
       callback = function(event)
