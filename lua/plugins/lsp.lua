@@ -11,13 +11,22 @@ return {
       },
     },
     'mason-org/mason-lspconfig.nvim',
-    { 'j-hui/fidget.nvim', opts = {
-      notification = {
-        window = {
-          winblend = 0,
+    {
+      'j-hui/fidget.nvim',
+      opts = {
+        progress = {
+          display = {
+            render_limit = 3,
+          },
+        },
+        notification = {
+          window = {
+            winblend = 0,
+            align = 'top',
+          },
         },
       },
-    } },
+    },
     'saghen/blink.cmp',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'b0o/schemastore.nvim',
@@ -181,9 +190,27 @@ return {
       gopls = {},
       rust_analyzer = {},
       -- C#
-      roslyn = {},
+      -- loaded from plugin
+      -- roslyn = {},
       -- F#
-      fsautocomplete = {},
+      fsautocomplete = {
+        on_attach = function(client)
+          client.server_capabilities.semanticTokensProvider = nil
+        end,
+        handlers = {
+          ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+            if result and result.uri and result.uri:match('%.cs$') then
+              return
+            end
+            vim.lsp.handlers['textDocument/publishDiagnostics'](err, result, ctx, config)
+          end,
+        },
+        settings = {
+          FSharp = {
+            excludeProjectDirectories = { 'Argonauts', 'Argonauts/**/*', 'Argonauts/**' },
+          },
+        },
+      },
       -- tsgo = {},
       clangd = {},
       hyprls = {},
@@ -195,6 +222,7 @@ return {
       'prettierd',
       'php-cs-fixer',
       'cspell',
+      'roslyn',
     })
 
     local capabilities = require('blink.cmp').get_lsp_capabilities()

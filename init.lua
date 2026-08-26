@@ -5,6 +5,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
+vim.opt.mousemoveevent = true
 vim.opt.showmode = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
@@ -34,6 +35,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.confirm = true
+vim.opt.conceallevel = 0
 vim.o.swapfile = false
 vim.o.backup = false
 
@@ -57,6 +59,15 @@ vim.filetype.add({
 
 require('diagnostic')
 require('keybinds')
+
+-- editorconfig sets textwidth from max_line_length, which causes auto-wrap while typing
+-- BufWinEnter fires after BufReadPost (where editorconfig runs), so this wins
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  pattern = '*',
+  callback = function()
+    vim.opt_local.textwidth = 0
+  end,
+})
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -99,8 +110,9 @@ require('lazy').setup({
         terminal_colors = false,
         ---@param highlights tokyonight.Highlights
         ---@param _ ColorScheme
-        on_highlights = function(highlights, _)
+        on_highlights = function(highlights, c)
           highlights.TabLineSel = { bg = '#252d37' }
+          highlights.TabLineHover = { bg = c.bg_highlight }
         end,
       })
       vim.cmd([[colorscheme tokyonight-night]])
@@ -137,30 +149,6 @@ require('lazy').setup({
     opts = {},
   },
   'jghauser/mkdir.nvim',
-  -- {
-  --   'supermaven-inc/supermaven-nvim',
-  --   config = function()
-  --     if not (vim.fn.has_key(vim.fn.environ(), 'LOAD_SUPERMAVEN') == 0) then
-  --       require('supermaven-nvim').setup({})
-  --     end
-  --   end,
-  -- },
-  {
-    'folke/todo-comments.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
-    opts = {},
-  },
-  {
-    'kawre/leetcode.nvim',
-    dependencies = {
-      -- include a picker of your choice, see picker section for more details
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-    },
-    opts = {
-      lang = 'typescript',
-    },
-  },
   {
     'folke/snacks.nvim',
     ---@type snacks.Config
@@ -180,18 +168,22 @@ require('lazy').setup({
     'seblyng/roslyn.nvim',
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
-    opts = {
-      -- your configuration comes here; leave empty for default settings
-    },
+    opts = {},
   },
   require('plugins/markview'),
   {
     'FabijanZulj/blame.nvim',
     lazy = false,
-    config = function()
-      require('blame').setup({})
-    end,
+    opts = {},
   },
+  -- {
+  --   'vyfor/cord.nvim',
+  --   ---@type CordConfig
+  --   opts = {
+  --     -- ...
+  --   },
+  -- },
+  require('plugins/diff'),
 })
 
 -- Load custom snippets after plugins are loaded

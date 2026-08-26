@@ -13,4 +13,16 @@ return {
     -- better deal with markdown code blocks
     markdown = true,
   },
+  config = function(_, opts)
+    require('mini.pairs').setup(opts)
+
+    -- In F# single quotes are mostly used for generics (e.g. 'a), so don't
+    -- auto-pair them.
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'fsharp',
+      callback = function(args)
+        MiniPairs.unmap_buf(args.buf, 'i', "'", "''")
+      end,
+    })
+  end,
 }

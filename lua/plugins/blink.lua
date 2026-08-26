@@ -34,7 +34,18 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'godot_getnode' },
+      providers = {
+
+        godot_getnode = {
+          name = 'GodotGetNode',
+          module = 'godot_getnode.blink',
+          score_offset = 100,
+          opts = {
+            ignore = { 'addons', '*.uid', '*.cs', '*.gd' },
+          },
+        },
+      },
     },
     cmdline = {
       enabled = false,

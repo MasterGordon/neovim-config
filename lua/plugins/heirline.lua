@@ -478,7 +478,7 @@ return {
       TabpageClose,
     }
 
-    local BufferLine = require('plugins.heirline-tabline')
+    local BufferLine = require('plugins.heirline-tabline').BufferLine
 
     local Tabline = { TablineOffset, BufferLine, TabPages }
 
